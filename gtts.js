@@ -22,7 +22,12 @@
 			"tts_playpause" : "Play / Pause",
 			"tts_rewind": "Rewind",
 			"tts_stop": "Stop & Close TTS",
-			"tts_error": "Error"
+			"tts_error": "Error",
+			"tts_overloaded": "The server is currently over capacity for text to speech conversions. Please try again later.",
+			"tts_problem": "Something went wrong while we were converting this page to speech. Please try again shortly.",
+			"tts_servererror": "An error occurred on the server. Please try again later.",
+			"tts_seconds": "seconds",
+			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select the 'selected text' option."
 		});
 
 		AtKit.addLocalisationMap("ar", {
@@ -37,14 +42,19 @@
 			"tts_playpause":"&#1578;&#1588;&#1594;&#1610;&#1604;/&#1573;&#1610;&#1602;&#1575;&#1601; &#1605;&#1572;&#1602;&#1578;",
 			"tts_rewind":"&#1573;&#1593;&#1575;&#1583;&#1577;",
 			"tts_stop":"&#1573;&#1610;&#1602;&#1575;&#1601;",
-			"tts_error":"&#1582;&#1591;&#1571;"
+			"tts_error":"&#1582;&#1591;&#1571;",
+			"tts_overloaded":"&#1601;&#1575;&#1602;&#1578; &#1593;&#1605;&#1604;&#1610;&#1575;&#1578; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1608;&#1589; &#1587;&#1593;&#1577; &#1575;&#1604;&#1582;&#1575;&#1583;&#1605;. &#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1575;&#1604;&#1605;&#1581;&#1575;&#1608;&#1604;&#1577; &#1604;&#1575;&#1581;&#1602;&#1575;&#1611;.",
+			"tts_problem":"&#1581;&#1583;&#1579; &#1582;&#1591;&#1571; &#1571;&#1579;&#1606;&#1575;&#1569; &#1593;&#1605;&#1604;&#1610;&#1577; &#1606;&#1591;&#1602; &#1575;&#1604;&#1589;&#1601;&#1581;&#1577;. &#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1575;&#1604;&#1605;&#1581;&#1575;&#1608;&#1604;&#1577; &#1576;&#1593;&#1583; &#1602;&#1604;&#1610;&#1604;.",
+			"tts_servererror": "&#1581;&#1583;&#1579; &#1582;&#1591;&#1571; &#1601;&#1610; &#1575;&#1604;&#1582;&#1575;&#1583;&#1605;. &#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1575;&#1604;&#1605;&#1581;&#1575;&#1608;&#1604;&#1577; &#1604;&#1575;&#1581;&#1602;&#1575;&#1611;.",
+			"tts_seconds":"&#1579;&#1608;&#1575;&#1606;&#1613;",
+			"tts_explain":"&#1604;&#1575;&#1587;&#1578;&#1582;&#1583;&#1575;&#1605; &#1582;&#1575;&#1589;&#1610;&#1577; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1578;&#1581;&#1583;&#1610;&#1583; &#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1585;&#1575;&#1583; &#1578;&#1581;&#1608;&#1610;&#1604;&#1607; &#1593;&#1604;&#1609; &#1607;&#1584;&#1607; &#1575;&#1604;&#1589;&#1601;&#1581;&#1577;. &#1576;&#1593;&#1583; &#1584;&#1604;&#1603; &#1575;&#1590;&#1594;&#1591; &#1586;&#1585; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1608;&#1575;&#1590;&#1594;&#1591; &#1582;&#1610;&#1575;&#1585; &quot;&#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1581;&#1583;&#1583;&quot;."		
 		});
 
 		// Text to speech
 		var TTSDialogs = {
 			"options": {
-				"title":AtKit.localisation("tts_options"),
-				"body": AtKit.localisation("tts_what") . "<br /><button id=\"sbStartTTSSelection\">" + AtKit.localisation("tts_selected") + "</button>"
+				"title": AtKit.localisation("tts_options"),
+				"body": AtKit.localisation("tts_what") + "<br /><button id=\"sbStartTTSSelection\">" + AtKit.localisation("tts_selected") + "</button>"
 			},
 			"starting": {
 				"title": AtKit.localisation("tts_title"),
@@ -200,9 +210,9 @@
 					if(RO.status == "encoding"){
 						AtKit.call('countdownTTS', { 'timeLeft':(RO.est_completion / RO.chunks), 'id': RO.ID });
 					} else if(RO.status == "failure" && RO.reason == "overcapacity"){
-						AtKit.message(errorTitle + "<p>The server is currently over capacity for text to speech conversions. Please try again later.</p>");
+						AtKit.message(errorTitle + "<p>" + AtKit.localisation("tts_overloaded") + "</p>");
 					} else if(RO.status == "failure" && RO.message == "") {
-						AtKit.message(errorTitle + "<p>Something went wrong while we were converting this page to text. Please try again shortly.</p>");
+						AtKit.message(errorTitle + "<p>" + AtKit.localisation("tts_problem") + "</p>");
 					} else {
 						AtKit.message(errorTitle + "<p>" + RO.reason + " " + RO.data.message + "</p>");
 					}
@@ -212,7 +222,7 @@
 					if(RO.data.message == "ChunkSaved"){
 						AtKit.call('sendTTSChunk', { 'fullData':args.fullData, 'block':(args.block + 1), 'totalBlocks':args.totalBlocks, 'reqID':args.reqID });
 					} else {
-						AtKit.message("<h2>" + AtKit.localisation("tts_error") + "</h2><p>An error occurred on the server. Please try again later.</p>");
+						AtKit.message("<h2>" + AtKit.localisation("tts_error") + "</h2><p>" + AtKit.localisation("tts_servererror") + "</p>");
 					}
 				}				
 				
@@ -222,7 +232,7 @@
 		
 		AtKit.addFn('countdownTTS', function(arg){
 			if(isNaN(arg.timeLeft)){
-				AtKit.message("<h2>" + AtKit.localisation("tts_error") + "</h2> <p>Something went wrong while we were converting this page to text (received a NaN for timeLeft).</p>");
+				AtKit.message("<h2>" + AtKit.localisation("tts_error") + "</h2> <p>" + AtKit.localisation("tts_problem") + "</p>");
 			} else {
 				if(arg.timeLeft == 0){
 
@@ -256,7 +266,7 @@
 					$(document).trigger('close.facebox');
 					
 				} else {
-					$('#sbttstimeremaining').html( arg.timeLeft + " seconds" );
+					$('#sbttstimeremaining').html( arg.timeLeft + " " + AtKit.localisation("tts_seconds") );
 					window.setTimeout(function(){ AtKit.call('countdownTTS', { 'timeLeft':(arg.timeLeft - 1), 'id':arg.id }) }, 1000);
 				}
 			}
@@ -413,7 +423,7 @@
 						});
 						
 					} else {
-						AtKit.message("<h2>Text-to-Speech</h2><p>To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select the 'selected text' option.</p>");
+						AtKit.message("<h2>" + AtKit.localisation("tts_title") + "</h2><p>" + AtKit.localisation("tts_explain") + "</p>");
 					}				
 				
 				});
