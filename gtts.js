@@ -38,7 +38,7 @@
 			"tts_page": "&#1603;&#1575;&#1605;&#1604; &#1575;&#1604;&#1589;&#1601;&#1581;&#1577;",
 			"tts_converting":"&#1580;&#1575;&#1585;&#1610;&#1577; &#1581;&#1575;&#1604;&#1610;&#1575;&#1611; &#1593;&#1605;&#1604;&#1610;&#1577; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;",
 			"tts_timeremaining": "&#1575;&#1604;&#1608;&#1602;&#1578; &#1575;&#1604;&#1605;&#1578;&#1576;&#1602;&#1610;",
-			"tts_pleasewait":"&#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1575;&#1604;&#1575;&#1606;&#1578;&#1592;&#1575;&#1585;…",
+			"tts_pleasewait":"&#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1575;&#1604;&#1575;&#1606;&#1578;&#1592;&#1575;&#1585;...",
 			"tts_playpause":"&#1578;&#1588;&#1594;&#1610;&#1604;/&#1573;&#1610;&#1602;&#1575;&#1601; &#1605;&#1572;&#1602;&#1578;",
 			"tts_rewind":"&#1573;&#1593;&#1575;&#1583;&#1577;",
 			"tts_stop":"&#1573;&#1610;&#1602;&#1575;&#1601;",
@@ -117,67 +117,7 @@
 			}
 		
 		});		
-		
-		AtKit.addFn('b64', function(input){
-			// + == _
-			// / == -
-			var bkeys = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-=";
-			var output = "";
-			var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
-			var i = 0;
-		
-			input = AtKit.call('utf8_encode', input);
-		
-			while (i < input.length) {
-		
-				chr1 = input.charCodeAt(i++);
-				chr2 = input.charCodeAt(i++);
-				chr3 = input.charCodeAt(i++);
-		
-				enc1 = chr1 >> 2;
-				enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-				enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-				enc4 = chr3 & 63;
-		
-				if (isNaN(chr2)) {
-					enc3 = enc4 = 64;
-				} else if (isNaN(chr3)) {
-					enc4 = 64;
-				}
-		
-				output = output +
-				bkeys.charAt(enc1) + bkeys.charAt(enc2) +
-				bkeys.charAt(enc3) + bkeys.charAt(enc4);
-		
-			}
-		
-			return output;		
-		});
-		
-		AtKit.addFn('utf8_encode', function(string){
-			string = string.replace(/\r\n/g,"\n");
-			var utftext = "";
-		
-			for (var n = 0; n < string.length; n++) {
-		
-				var c = string.charCodeAt(n);
-		
-				if (c < 128) {
-					utftext += String.fromCharCode(c);
-				} else if((c > 127) && (c < 2048)) {
-					utftext += String.fromCharCode((c >> 6) | 192);
-					utftext += String.fromCharCode((c & 63) | 128);
-				} else {
-					utftext += String.fromCharCode((c >> 12) | 224);
-					utftext += String.fromCharCode(((c >> 6) & 63) | 128);
-					utftext += String.fromCharCode((c & 63) | 128);
-				}
-		
-			}
-		
-			return utftext;	
-		});
-		
+
 		AtKit.addFn('sendTTSChunk', function(args){
 			if(args.block == 1){
 				var start = 0;
@@ -350,7 +290,7 @@
 		AtKit.set('TTS_clickEnabled', true);
 
 		AtKit.addButton(
-			'tts', 
+			'gtts', 
 			AtKit.localisation("gtts_title"),
 			settings.baseURL + 'images/sound.png',
 			function(dialogs, functions){
@@ -361,34 +301,6 @@
 
 				AtKit.addScript(settings.baseURL + '/swfobject.js', null);
 
-				/*$('#sbStartTTS').click(function(e){ 
-					// Get page contents.
-					var pageData = $(document.body).clone();
-					
-					pageData.find('script, noscript, style, #facebox_overlay, #sbar, #sbarGhost, #facebox, br, img').remove();
-					
-					
-					// Remove comments
-					pageData = String(pageData.html()).replace(/<!---.*--->/g, '');
-					pageData.replace(/[\n\r]+/g, '');
-					
-					console.log(pageData);
-					
-					pageData = AtKit.call('b64', pageData);
-		
-					var chunks = Math.ceil(pageData.length / settings.ttsChunkSize);
-					
-					if(chunks > 0){
-						var reqID = Math.floor(Math.random() * 5001);
-						
-						AtKit.message( "<h2>Processing</h2><p>Compacting and transmitting data...<br /><div id='compactStatus'>0 / " + chunks + "</div></p>" );
-						
-						AtKit.call('sendTTSChunk', { 'fullData':pageData, 'block':1, 'totalBlocks':chunks, 'reqID':reqID });
-					} else {
-						AtKit.message( "<h2>Oops!</h2><p>There doesn't seem to be any content on this page, or we can't read it.</p>" );
-					}
-					
-				});*/
 				
 				$('#sbStartTTSSelection').click(function(e){ 
 				
