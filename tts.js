@@ -3,7 +3,11 @@
 	var pluginName = "tts";
 	var plugin = function(){
 
-		var settings = { baseURL: "http://c.atbar.org/ATBar/" }
+		var settings = { 
+			"baseURL": "http://c.atbar.org/ATBar/",
+			"serverURL": 'http://a.atbar.org/',
+			"ttsChunkSize": 1500
+		}
 
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
@@ -14,7 +18,7 @@
 			"tts_page": "Entire Page",
 			"tts_converting": "Text to Speech conversion is taking place.",
 			"tts_timeremaining": "Time Remaining:",
-			"tts_pleasewait": "Please wait…",
+			"tts_pleasewait": "Please wait...",
 			"tts_playpause" : "Play / Pause",
 			"tts_rewind": "Rewind",
 			"tts_stop": "Stop & Close TTS",
@@ -34,7 +38,7 @@
 			"tts_page": "&#1603;&#1575;&#1605;&#1604; &#1575;&#1604;&#1589;&#1601;&#1581;&#1577;",
 			"tts_converting":"&#1580;&#1575;&#1585;&#1610;&#1577; &#1581;&#1575;&#1604;&#1610;&#1575;&#1611; &#1593;&#1605;&#1604;&#1610;&#1577; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;",
 			"tts_timeremaining": "&#1575;&#1604;&#1608;&#1602;&#1578; &#1575;&#1604;&#1605;&#1578;&#1576;&#1602;&#1610;",
-			"tts_pleasewait":"&#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1575;&#1604;&#1575;&#1606;&#1578;&#1592;&#1575;&#1585;…",
+			"tts_pleasewait":"&#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1575;&#1604;&#1575;&#1606;&#1578;&#1592;&#1575;&#1585;...",
 			"tts_playpause":"&#1578;&#1588;&#1594;&#1610;&#1604;/&#1573;&#1610;&#1602;&#1575;&#1601; &#1605;&#1572;&#1602;&#1578;",
 			"tts_rewind":"&#1573;&#1593;&#1575;&#1583;&#1577;",
 			"tts_stop":"&#1573;&#1610;&#1602;&#1575;&#1601;",
@@ -97,6 +101,24 @@
 			}
 		};		
 		
+
+		// Add functions to AtKit.
+		AtKit.addFn('getSelectedText', function(strip){ 
+			var text = '';
+		     if (window.getSelection){
+		        text = window.getSelection();
+		     } else if (document.getSelection){
+		        text = document.getSelection();
+		     } else if (document.selection){
+		        text = document.selection.createRange().text;
+		     }
+		    if(strip == true){
+				return String(text).replace(/([\s]+)/ig, '');
+			} else {
+				return String(text);
+			}
+
+		});
 		
 		AtKit.addFn('b64', function(input){
 			// + == _
