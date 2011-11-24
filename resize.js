@@ -16,6 +16,10 @@
 
 		var settings = { baseURL: "http://c.atbar.org/ATBar/" }
 
+		if(/https:/.test(window.location.protocol)){
+			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
+		}
+
 		AtKit.addFn('resizeText', function(multiplier){
 			var current = parseFloat($('body').css('font-size'));
 		
@@ -29,8 +33,6 @@
 		// If we have a stored fontsize for this page, restore it now.
 		var stored_fontSize = AtKit.storage('pageFontSize');
 		if(stored_fontSize != false) $('body').css('font-size', stored_fontSize + "px" );
-		
-		var settings = { baseURL: "http://c.atbar.org/ATBar/" }
 		
 		AtKit.addButton(
 			'resizeUp', 

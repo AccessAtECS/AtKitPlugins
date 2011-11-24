@@ -9,6 +9,11 @@
 			'serverURL': 'http://a.atbar.org/'
 		};
 
+		if(/https:/.test(window.location.protocol)){
+			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
+			settings.serverURL = "https://ssl.atbar.org/a/";
+		}
+
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
 			"dictionary_title" : "Dictionary",

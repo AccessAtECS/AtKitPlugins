@@ -8,6 +8,11 @@
 			'serverURL': 'http://a.atbar.org/',
 			'ttsChunkSize': 1500
 		};
+		
+		if(/https:/.test(window.location.protocol)){
+			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
+			settings.serverURL = "https://ssl.atbar.org/a/";
+		}
 
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
@@ -18,7 +23,7 @@
 			"tts_page": "Entire Page",
 			"tts_converting": "Text to Speech conversion is taking place.",
 			"tts_timeremaining": "Time Remaining:",
-			"tts_pleasewait": "Please wait…",
+			"tts_pleasewait": "Please wait...",
 			"tts_playpause" : "Play / Pause",
 			"tts_rewind": "Rewind",
 			"tts_stop": "Stop & Close TTS",
@@ -203,7 +208,7 @@
 					
 					}
 
-					$(document).trigger('close.facebox');
+					AtKit.hideDialog();
 					
 				} else {
 					$('#sbttstimeremaining').html( arg.timeLeft + " " + AtKit.localisation("tts_seconds") );

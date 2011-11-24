@@ -6,8 +6,11 @@
 		settings = {
 			"baseURL": "http://c.atbar.org/ATBar/"
 		};
-
-
+		
+		if(/https:/.test(window.location.protocol)){
+			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
+		}
+		
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
 			"spell_title" : "Start Spellchecker"

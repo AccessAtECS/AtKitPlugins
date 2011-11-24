@@ -9,6 +9,11 @@
 			"ttsChunkSize": 1500
 		}
 
+		if(/https:/.test(window.location.protocol)){
+			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
+			settings.serverURL = "https://ssl.atbar.org/a/";
+		}
+
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
 			"tts_title" : "Text to Speech",
@@ -242,12 +247,12 @@
 					var audioContainer = "audioo";
 					
 					if($.browser != "msie"){
-						$('#sbar').prepend( $("<div id=\"flashContent\"><OBJECT classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" width=\"1\" height=\"1\" id=\"audioe\"> <PARAM name=movie value=\"" + settings.serverURL + "TTS/player/player-licensed.swf\"></PARAM> <PARAM name=flashvars value=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer + "\"><PARAM name=allowscriptaccess value=\"always\" /><embed type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" src=\"" + settings.serverURL + "TTS/player/player-licensed.swf\" width=\"1\" height=\"1\" allowscriptaccess=\"always\" allowfullscreen=\"false\" flashvars=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady\" name=\"audioe\" /> </OBJECT></div>") );
+						$('body').append( $("<div id=\"flashContent\"><OBJECT classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" width=\"1\" height=\"1\" id=\"audioe\"> <PARAM name=movie value=\"" + settings.serverURL + "TTS/player/player-licensed.swf\"></PARAM> <PARAM name=flashvars value=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer + "\"><PARAM name=allowscriptaccess value=\"always\" /><embed type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" src=\"" + settings.serverURL + "TTS/player/player-licensed.swf\" width=\"1\" height=\"1\" allowscriptaccess=\"always\" allowfullscreen=\"false\" flashvars=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady\" name=\"audioe\" /> </OBJECT></div>") );
 					
 						AtKit.call('setupTTSListeners');
 					} else {
 						
-						$("<div />", {'id': 'flashContent' }).prependTo("#sbar");
+						$("<div />", {'id': 'flashContent' }).prependTo("body");
 						
 
 						var params = {
@@ -265,7 +270,7 @@
 					
 					}
 
-					$(document).trigger('close.facebox');
+					AtKit.hideDialog();
 					
 				} else {
 					$('#sbttstimeremaining').html( arg.timeLeft + " seconds" );
