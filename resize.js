@@ -3,6 +3,8 @@
 	var pluginName = "resize";
 	var plugin = function(){
 
+		$lib = AtKit.lib();
+
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
 			"resize_up" : "Increase Font Size",
@@ -21,18 +23,18 @@
 		}
 
 		AtKit.addFn('resizeText', function(multiplier){
-			var current = parseFloat($('body').css('font-size'));
+			var current = parseFloat($lib('body').css('font-size'));
 		
 			var mult = parseFloat(multiplier);
 			var newVal = parseFloat(current + mult);
 		
-			$('body').css('font-size', newVal + "px" );
+			$lib('body').css('font-size', newVal + "px" );
 			AtKit.storage('pageFontSize', newVal);
 		});
 		
 		// If we have a stored fontsize for this page, restore it now.
 		var stored_fontSize = AtKit.storage('pageFontSize');
-		if(stored_fontSize != false) $('body').css('font-size', stored_fontSize + "px" );
+		if(stored_fontSize != false) $lib('body').css('font-size', stored_fontSize + "px" );
 		
 		AtKit.addButton(
 			'resizeUp', 

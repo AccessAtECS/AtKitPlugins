@@ -3,6 +3,8 @@
 	var pluginName = "gtts";
 	var plugin = function(){
 
+		$lib = AtKit.lib();
+
 		var settings = {
 			'baseURL': 'http://c.atbar.org/ATBar/',
 			'serverURL': 'http://a.atbar.org/',
@@ -76,7 +78,7 @@
 					'tooltip': AtKit.localisation("tts_playpause"),
 					'icon': settings.baseURL + "images/control-pause.png",
 					'fn': function(){
-						var targetObj = ($.browser == "msie") ? swfobject.getObjectById(AtKit.get('ATAudioPlayerID')) : window.document['audioe'];
+						var targetObj = ($lib.browser == "msie") ? swfobject.getObjectById(AtKit.get('ATAudioPlayerID')) : window.document['audioe'];
 						targetObj.sendEvent('play');
 					}
 				},
@@ -89,7 +91,7 @@
 						var newPosition = (currentPosition - scrubAmount);
 						if(newPosition < 0) newPosition = 0;
 
-						var targetObj = ($.browser == "msie") ? swfobject.getObjectById(AtKit.get('ATAudioPlayerID')) : window.document['audioe'];
+						var targetObj = ($lib.browser == "msie") ? swfobject.getObjectById(AtKit.get('ATAudioPlayerID')) : window.document['audioe'];
 						targetObj.sendEvent('seek', newPosition);
 					}
 				},
@@ -97,7 +99,7 @@
 					'tooltip': AtKit.localisation("tts_stop"),
 					'icon': settings.baseURL + "images/control-stop-square.png",
 					'fn': function(){
-						var targetObj = ($.browser == "msie") ? swfobject.getObjectById(AtKit.get('ATAudioPlayerID')) : window.document['audioe'];
+						var targetObj = ($lib.browser == "msie") ? swfobject.getObjectById(AtKit.get('ATAudioPlayerID')) : window.document['audioe'];
 						targetObj.sendEvent('stop');
 
 						AtKit.call('TTSRemoveControlBox');
@@ -145,8 +147,8 @@
 			
 			urlString += "&callback=?";
 			
-			$.getJSON(urlString, function(RO){
-				$("#compactStatus").html(args.block + " / " + args.totalBlocks);
+			$lib.getJSON(urlString, function(RO){
+				$lib("#compactStatus").html(args.block + " / " + args.totalBlocks);
 				
 				var errorTitle = "<h2>" + AtKit.localisation("tts_error") + "</h2>";
 				if(args.block == args.totalBlocks){
@@ -184,13 +186,13 @@
 					// Play audio
 					var audioContainer = "audioo";
 					
-					if($.browser != "msie"){
-						$('#sbar').prepend( $("<div id=\"flashContent\"><OBJECT classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" width=\"1\" height=\"1\" id=\"audioe\"> <PARAM name=movie value=\"" + settings.serverURL + "TTS/player/player-licensed.swf\"></PARAM> <PARAM name=flashvars value=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer + "\"><PARAM name=allowscriptaccess value=\"always\" /><embed type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" src=\"" + settings.serverURL + "TTS/player/player-licensed.swf\" width=\"1\" height=\"1\" allowscriptaccess=\"always\" allowfullscreen=\"false\" flashvars=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady\" name=\"audioe\" /> </OBJECT></div>") );
+					if($lib.browser != "msie"){
+						$lib('#sbar').prepend( $lib("<div id=\"flashContent\"><OBJECT classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" width=\"1\" height=\"1\" id=\"audioe\"> <PARAM name=movie value=\"" + settings.serverURL + "TTS/player/player-licensed.swf\"></PARAM> <PARAM name=flashvars value=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer + "\"><PARAM name=allowscriptaccess value=\"always\" /><embed type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" src=\"" + settings.serverURL + "TTS/player/player-licensed.swf\" width=\"1\" height=\"1\" allowscriptaccess=\"always\" allowfullscreen=\"false\" flashvars=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady\" name=\"audioe\" /> </OBJECT></div>") );
 					
 						AtKit.call('setupTTSListeners');
 					} else {
 						
-						$("<div />", {'id': 'flashContent' }).prependTo("#sbar");
+						$lib("<div />", {'id': 'flashContent' }).prependTo("#sbar");
 						
 
 						var params = {
@@ -211,7 +213,7 @@
 					AtKit.hideDialog();
 					
 				} else {
-					$('#sbttstimeremaining').html( arg.timeLeft + " " + AtKit.localisation("tts_seconds") );
+					$lib('#sbttstimeremaining').html( arg.timeLeft + " " + AtKit.localisation("tts_seconds") );
 					window.setTimeout(function(){ AtKit.call('countdownTTS', { 'timeLeft':(arg.timeLeft - 1), 'id':arg.id }) }, 1000);
 				}
 			}
@@ -236,7 +238,7 @@
 				// Add page listeners
 				var playerObj = swfobject.getObjectById(obj.id);
 				
-				if($.browser != "msie"){
+				if($lib.browser != "msie"){
 					playerObj = window.document["audioe"];
 				}
 
@@ -259,7 +261,7 @@
 
 				var playerObj = swfobject.getObjectById(obj.id);
 				
-				if($.browser != "msie"){
+				if($lib.browser != "msie"){
 					playerObj = window.document["audioe"];
 				}
 				
@@ -269,12 +271,12 @@
 				}
 
 				if(state == "IDLE" || state == "PAUSED") {
-					$('#at-lnk-ttsPlay').children('img').attr('src', settings.baseURL + "images/control.png");
-					$('#at-btn-tts').children('img').attr('src', settings.baseURL + "images/sound.png").css('padding-top', '6px');
+					$lib('#at-lnk-ttsPlay').children('img').attr('src', settings.baseURL + "images/control.png");
+					$lib('#at-btn-tts').children('img').attr('src', settings.baseURL + "images/sound.png").css('padding-top', '6px');
 				} else {
 					if(AtKit.get('TTS_clickEnabled') == false){
-						$('#at-lnk-ttsPlay').children('img').attr('src', settings.baseURL + "images/control-pause.png");
-						$('#at-btn-tts').children('img').attr('src', settings.baseURL + "images/loading.gif").css('padding-top', '8px');
+						$lib('#at-lnk-ttsPlay').children('img').attr('src', settings.baseURL + "images/control-pause.png");
+						$lib('#at-btn-tts').children('img').attr('src', settings.baseURL + "images/loading.gif").css('padding-top', '8px');
 					}
 				}
 			}
@@ -287,8 +289,8 @@
 			AtKit.removeButton('ttsRewind');
 			AtKit.removeButton('ttsStop');
 
-	      	$("#flashContent").remove();
-	      	$('#at-lnk-tts').children('img').attr('src', settings.baseURL + "images/sound.png").css('padding-top', '6px');
+	      	$lib("#flashContent").remove();
+	      	$lib('#at-lnk-tts').children('img').attr('src', settings.baseURL + "images/sound.png").css('padding-top', '6px');
 	      	AtKit.set('TTS_clickEnabled', true);
 		});
 
@@ -307,7 +309,7 @@
 				AtKit.addScript(settings.baseURL + '/swfobject.js', null);
 
 				
-				$('#sbStartTTSSelection').click(function(e){ 
+				$lib('#sbStartTTSSelection').click(function(e){ 
 				
 					AtKit.set('TTS_clickEnabled', false);
 
@@ -317,10 +319,10 @@
 				
 						this.clickEnabled = false;
 						
-						$.getJSON("http://core.a.atbar.org/API/gTTS.php?l=ar&r=" + encodeURIComponent(selectedData) + "&c=?", function(data){
+						$lib.getJSON("http://core.a.atbar.org/API/gTTS.php?l=ar&r=" + encodeURIComponent(selectedData) + "&c=?", function(data){
 							var audioContainer = "audioo";
 							
-							$("<div />", {'id': 'flashContent' }).prependTo("#sbar");
+							$lib("<div />", {'id': 'flashContent' }).prependTo("#sbar");
 							
 	
 							var params = {

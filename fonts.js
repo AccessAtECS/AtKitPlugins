@@ -3,6 +3,8 @@
 	var pluginName = "fonts";
     var plugin = function(){
 
+		$lib = AtKit.lib();
+
 		var settings = {
 			'baseURL': 'http://c.atbar.org/ATBar/'
 		};
@@ -33,10 +35,11 @@
 		};
 		
 		AtKit.addFn('changeFont', function(args){
-			if(args.fontFace != "--Site Specific--") $('body').css('font-family', args.fontFace);
+			if(args.fontFace != "--Site Specific--") $lib('body').css('font-family', args.fontFace);
 			
-			$('div').css('line-height', args.lineHeight + "%");
-			$('#sbar').css('line-height', '0%');
+			$lib('div[id!="sbar"], span, p').css('line-height', args.lineHeight + "%");
+			$lib('#sbar').find('div').css('line-height', '0%');
+			
 			AtKit.storage('pageFont', args.fontFace);
 			AtKit.storage('pageLineHeight', args.lineHeight);
 		});
@@ -49,16 +52,16 @@
 				AtKit.message(dialogs.main);
 				
 				var storedFont = AtKit.storage('pageFont');
-				if(storedFont != false) $('#sbfontface').children('option[value="' + storedFont + '"]').attr('selected', 'selected');
+				if(storedFont != false) $lib('#sbfontface').children('option[value="' + storedFont + '"]').attr('selected', 'selected');
 				
-				$('#ATApplyFont').click(function(){
+				$lib('#ATApplyFont').click(function(){
 					AtKit.call('changeFont', { 
-						'fontFace': $('#sbfontface').val(),
-						'lineHeight': $('#sblinespacing').val()
+						'fontFace': $lib('#sbfontface').val(),
+						'lineHeight': $lib('#sblinespacing').val()
 					});
 				});
 				
-				$("#sbfontface").focus();
+				$lib("#sbfontface").focus();
 			},
 			fontDialogs, null
 		);

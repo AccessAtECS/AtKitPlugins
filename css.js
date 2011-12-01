@@ -11,6 +11,8 @@
 			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
 		}
 
+		$lib = AtKit.lib();
+
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
 			"css_title" : "Change Styles",
@@ -100,88 +102,88 @@
 		
 		CSSFunctions = {
 			"changeToolbar": function(){
-				$("#sbbackgroundcolour").focus();
+				$lib("#sbbackgroundcolour").focus();
 				
-				$('#sbRandomColour').click(function(){ AtKit.call('setColour', "rand"); });
-				$('#sbSetColour').click(function(){ AtKit.call('setColour', $("#sbbackgroundcolour").val() ); });
-				$('#sbColourReset').click(function(){ AtKit.call('setColour', "#EBEAED"); });
+				$lib('#sbRandomColour').click(function(){ AtKit.call('setColour', "rand"); });
+				$lib('#sbSetColour').click(function(){ AtKit.call('setColour', $lib("#sbbackgroundcolour").val() ); });
+				$lib('#sbColourReset').click(function(){ AtKit.call('setColour', "#EBEAED"); });
 			},
 			"siteColours": function(){
-				$('#applyPageColours').click(function(e){ 			
-					if( $('#sbtextcolour').val() != "undefined" && $('#sbtextcolour').val() != "original" ){
-						$('*').css('color', "#" + $('#sbtextcolour').val());
+				$lib('#applyPageColours').click(function(e){ 			
+					if( $lib('#sbtextcolour').val() != "undefined" && $lib('#sbtextcolour').val() != "original" ){
+						$lib('*').css('color', "#" + $lib('#sbtextcolour').val());
 					}
 					
-					if( $('#sblinkcolour').val() != "undefined" && $('#sblinkcolour').val() != "original" ){
-						$('a').css('color', "#" + $('#sblinkcolour').val());
+					if( $lib('#sblinkcolour').val() != "undefined" && $lib('#sblinkcolour').val() != "original" ){
+						$lib('a').css('color', "#" + $lib('#sblinkcolour').val());
 					}
 				});
 				
-				$('#sblinkcolour').keypress(function(e){ 
+				$lib('#sblinkcolour').keypress(function(e){ 
 					if(e.keyCode == 13){  
-						if( $('#sbpagebackgroundcolour').val() != "undefined"){
-							$('body').css('backgroundColor', $('#sbpagebackgroundcolour').val());
+						if( $lib('#sbpagebackgroundcolour').val() != "undefined"){
+							$lib('body').css('backgroundColor', $lib('#sbpagebackgroundcolour').val());
 						}
 						
-						if( $('#sbtextcolour').val() != "undefined" && $('#sbtextcolour').val() != "original" ){
-							$('body').css('color', "#" + $('#sbtextcolour').val());
+						if( $lib('#sbtextcolour').val() != "undefined" && $lib('#sbtextcolour').val() != "original" ){
+							$lib('body').css('color', "#" + $lib('#sbtextcolour').val());
 						}
 						
-						if( $('#sblinkcolour').val() != "undefined" && $('#sblinkcolour').val() != "original" ){
-							$('a').css('color', "#" + $('#sblinkcolour').val());
+						if( $lib('#sblinkcolour').val() != "undefined" && $lib('#sblinkcolour').val() != "original" ){
+							$lib('a').css('color', "#" + $lib('#sblinkcolour').val());
 						}	
 						
-						$(document).trigger('close.facebox');		
+						$lib(document).trigger('close.facebox');		
 					} 
 				
 				});
 				
-				$("#sbtextcolour").focus();			
+				$lib("#sbtextcolour").focus();			
 			},
 			"CSSStyles": function(){
-				$('#sbApplyCSS-yb').click(function(e){ 
-					$(document).trigger('close.facebox');
-					$('link[rel=stylesheet]').remove();
+				$lib('#sbApplyCSS-yb').click(function(e){ 
+					$lib(document).trigger('close.facebox');
+					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings.baseURL + "stylesheets/high-yo.css", "highvis-yo");
 				});
 				
-				$('#sbApplyCSS-wb').click(function(e){ 
-					$(document).trigger('close.facebox');
-					$('link[rel=stylesheet]').remove();
+				$lib('#sbApplyCSS-wb').click(function(e){ 
+					$lib(document).trigger('close.facebox');
+					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings.baseURL + "stylesheets/high-wb.css", "highvis-wb");
 				});
 				
-				$('#sbApplyCSS-wbw').click(function(e){
-					$(document).trigger('close.facebox');
-					$('link[rel=stylesheet]').remove();
+				$lib('#sbApplyCSS-wbw').click(function(e){
+					$lib(document).trigger('close.facebox');
+					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings.baseURL + "stylesheets/high-bw.css", "highvis-wbw");
 				});
 				
-				$('#sbApplyCSS-by').click(function(e){
-					$(document).trigger('close.facebox');
-					$('link[rel=stylesheet]').remove();
+				$lib('#sbApplyCSS-by').click(function(e){
+					$lib(document).trigger('close.facebox');
+					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings.baseURL + "stylesheets/high-by.css", "highvis-by");
 				});
 				
-				$('#sbApplyCSS-gw').click(function(e){
-					$(document).trigger('close.facebox');
-					$('link[rel=stylesheet]').remove();
+				$lib('#sbApplyCSS-gw').click(function(e){
+					$lib(document).trigger('close.facebox');
+					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings.baseURL + "stylesheets/high-gw.css", "highvis-by");
 				});	
 				
 				
-				$("#sbApplyCSS-wb").focus();
+				$lib("#sbApplyCSS-wb").focus();
 			}
 		};
 		
 		AtKit.addFn('setColour', function(code){
 			if(code == "rand"){
 				colour = '#'+Math.floor(Math.random()*16777215).toString(16);
-				$("#sbbackgroundcolour").val(colour);
+				$lib("#sbbackgroundcolour").val(colour);
 			} else {
 				colour = code;
 			}
-			$('#sbar').css('background-color', colour);
+			$lib('#sbar').css('background-color', colour);
 		});
 		
 		AtKit.addButton(
@@ -191,17 +193,17 @@
 			function(dialogs, functions){
 				AtKit.show(dialogs.main);
 				
-				$('#sbColourChange').click(function(){
+				$lib('#sbColourChange').click(function(){
 					AtKit.show(dialogs.toolbar);
 					functions.changeToolbar();
 				});
 
-				$('#sbChangeSiteColours').click(function(){
+				$lib('#sbChangeSiteColours').click(function(){
 					AtKit.show(dialogs.siteColours);
 					functions.siteColours();
 				});
 
-				$('#sbAttachCSSStyle').click(function(){
+				$lib('#sbAttachCSSStyle').click(function(){
 					AtKit.show(dialogs.CSSStyles);
 					functions.CSSStyles();
 				});

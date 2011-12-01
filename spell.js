@@ -3,6 +3,8 @@
 	var pluginName = "spell";
 	var plugin = function(){
 		
+		$lib = AtKit.lib();
+		
 		settings = {
 			"baseURL": "http://c.atbar.org/ATBar/"
 		};
@@ -40,7 +42,7 @@
 						tinyMCE.activeEditor.onKeyPress.add(function(ed, e) {
 							var content = tinyMCE.activeEditor.getContent();
 							if ( rteSpellTimer ) window.clearTimeout(rteSpellTimer);
-							rteSpellTimer = window.setTimeout(function() { $("#" + tinyMCE.activeEditor.editorContainer).rteSpellCheck(content, tinyMCE.activeEditor, { useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(),  RTEType: 'tMCE' }); }, 750);
+							rteSpellTimer = window.setTimeout(function() { $lib("#" + tinyMCE.activeEditor.editorContainer).rteSpellCheck(content, tinyMCE.activeEditor, { useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(),  RTEType: 'tMCE' }); }, 750);
 						});
 					}
 					
@@ -50,16 +52,16 @@
 						   	CKE.instances[o].document.on('keypress', function(){
 					    		if ( rteSpellTimer ) window.clearTimeout(rteSpellTimer);
 					    		var content = CKE.instances[o].getData();
-					    		rteSpellTimer = window.setTimeout(function() { $("#" + CKE.instances[o].element.getId()).rteSpellCheck(content, CKE.instances[o], { useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(),  RTEType: 'CKE' }); }, 750);
+					    		rteSpellTimer = window.setTimeout(function() { $lib("#" + CKE.instances[o].element.getId()).rteSpellCheck(content, CKE.instances[o], { useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(),  RTEType: 'CKE' }); }, 750);
 					    	});
 						}
 					}
 					
 					
-					$("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': "ar", baseURL: settings.baseURL });
-					$('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': "ar", baseURL: settings.baseURL });
+					$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': "ar", baseURL: settings.baseURL });
+					$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': "ar", baseURL: settings.baseURL });
 					
-					$('#at-lnk-spell').find('img').attr('src', settings.baseURL + "images/spell.png");
+					$lib('#at-lnk-spell').find('img').attr('src', settings.baseURL + "images/spell.png");
 					
 				
 				});
