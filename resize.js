@@ -16,12 +16,6 @@
 			"resize_down" : "&#1575;&#1606;&#1602;&#1575;&#1589; &#1581;&#1580;&#1605; &#1575;&#1604;&#1582;&#1591;"
 		});
 
-		var settings = { baseURL: "http://c.atbar.org/ATBar/" }
-
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-		}
-
 		AtKit.addFn('resizeText', function(multiplier){
 			var current = parseFloat($lib('body').css('font-size'));
 		
@@ -39,7 +33,7 @@
 		AtKit.addButton(
 			'resizeUp', 
 			AtKit.localisation("resize_up"),
-			settings.baseURL + 'images/font_increase.png',
+			AtKit.getPluginURL() + 'images/font_increase.png',
 			function(dialogs, functions){
 				AtKit.call('resizeText', '1');
 			},
@@ -49,7 +43,7 @@
 		AtKit.addButton(
 			'resizeDown', 
 			AtKit.localisation("resize_down"),
-			settings.baseURL + 'images/font_decrease.png',
+			AtKit.getPluginURL() + 'images/font_decrease.png',
 			function(dialogs, functions){
 				AtKit.call('resizeText', '-1');
 			},

@@ -3,14 +3,6 @@
 	var pluginName = "ftw";
 	var plugin = function(){
 
-		var settings = {
-			'baseURL': 'http://c.atbar.org/ATBar/'
-		};
-
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-		}
-
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
 			"ftw_title" : "Create a fix the web report about this page (opens in a popup window)"
@@ -23,7 +15,7 @@
 		AtKit.addButton(
 			pluginName,
 			AtKit.localisation("ftw_title"),
-			settings.baseURL + 'images/FTW.png',
+			AtKit.getPluginURL() + 'images/FTW.png',
 			function(dialogs, functions){
 				loc = window.location.toString();
 				loc = loc.replace(window.location.hash.toString(), "");

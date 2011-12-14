@@ -6,12 +6,10 @@
 		$lib = AtKit.lib();
 		
 		var settings = {
-			'baseURL': 'http://c.atbar.org/ATBar/',
 			'serverURL': 'http://a.atbar.org/'
 		};
 
 		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
 			settings.serverURL = "https://ssl.atbar.org/a/";
 		}
 
@@ -115,12 +113,12 @@
 		AtKit.addButton(
 			'dictionary', 
 			AtKit.localisation("dictionary_title"),
-			settings.baseURL + 'images/book_open.png',
+			AtKit.getPluginURL() + 'images/book_open.png',
 			function(dialogs, functions){
 				var data = eval("\"" + AtKit.call('getSelectedText', true) + "\";");
 				
 				if(data != ""){
-					$lib("#at-lnk-dictionary").children('img').attr('src', settings.baseURL + "images/loading.gif");
+					$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/loading.gif");
 					
 					$lib.getJSON( settings.serverURL + 'xmlhttp/remote.php?rt=dict&titles=' + encodeURI(data.toLowerCase()) + '&v=2&l=' + AtKit.getLanguage() + '&callback=?', function(data){
 						ro = data;
@@ -139,12 +137,12 @@
 						}
 						
 						AtKit.message("<h2>" + AtKit.localisation("dictionary_definition") + " \"" + title + "\"</h2><div class=\"constrainContent\">" + definition + "</div>");
-						$lib("#at-lnk-dictionary").children('img').attr('src', settings.baseURL + "images/book_open.png");
+						$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 					});
 					
 				} else {
 					$lib.facebox("<h2>" + AtKit.localisation("dictionary_title") + "</h2><p>" + AtKit.localisation("dictionary_use") + "</p>");
-					$lib("#at-lnk-dictionary").children('img').attr('src', settings.baseURL + "images/book_open.png");
+					$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 				}
 			},
 			null, null

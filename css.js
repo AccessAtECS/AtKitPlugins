@@ -189,7 +189,7 @@
 		AtKit.addButton(
 			pluginName,
 			AtKit.localisation("css_title"),
-			settings.baseURL + 'images/palette.png',
+			AtKit.getPluginURL() + 'images/palette.png',
 			function(dialogs, functions){
 				AtKit.show(dialogs.main);
 				

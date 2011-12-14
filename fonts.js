@@ -5,14 +5,6 @@
 
 		$lib = AtKit.lib();
 
-		var settings = {
-			'baseURL': 'http://c.atbar.org/ATBar/'
-		};
-
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-		}
-
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
 			"fonts_dialogTitle" : "Page font settings",
@@ -47,7 +39,7 @@
 		AtKit.addButton(
 			'fontSettings', 
 			AtKit.localisation("fonts_dialogTitle"),
-			settings.baseURL + 'images/font.png',
+			AtKit.getPluginURL() + 'images/font.png',
 			function(dialogs, functions){
 				AtKit.message(dialogs.main);
 				

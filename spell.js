@@ -28,12 +28,16 @@
 		AtKit.addButton(
 			'spell', 
 			AtKit.localisation("spell_title"),
-			settings.baseURL + 'images/spell-off.png',
+			AtKit.getPluginURL() + 'images/spell-off.png',
 			function(dialogs, functions){
 				if(settings.spellcheckerLoading) return;
 				settings.spellcheckerLoading = true;
 				
-				AtKit.addScript(settings.baseURL + 'spell-ar.js', function(){ 
+				var script = "spell.js";
+				
+				if(AtKit.getLanguage() == "ar") script = 'spell-ar.js';
+				
+				AtKit.addScript(settings.baseURL + script, function(){ 
 					
 					// Are there any TinyMCE fields on this page?
 					if((typeof AtKit.__env.window.tinyMCE) != 'undefined'){
@@ -58,8 +62,8 @@
 					}
 					
 					
-					$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': "ar", baseURL: settings.baseURL });
-					$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': "ar", baseURL: settings.baseURL });
+					$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: settings.baseURL });
+					$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: settings.baseURL });
 					
 					$lib('#at-lnk-spell').find('img').attr('src', settings.baseURL + "images/spell.png");
 					

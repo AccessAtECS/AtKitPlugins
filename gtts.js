@@ -65,7 +65,7 @@
 			},
 			"starting": {
 				"title": AtKit.localisation("tts_title"),
-				"body": "<center>" + AtKit.localisation("tts_converting") + "<br /><img src='" + settings.baseURL + "images/loadingbig.gif' /><br />" + AtKit.localisation("tts_timeremaining") + " <div id='sbttstimeremaining'>calculating</div><br />" + AtKit.localisation("tts_pleasewait") + "</center>"
+				"body": "<center>" + AtKit.localisation("tts_converting") + "<br /><img src='" + AtKit.getPluginURL() + "images/loadingbig.gif' /><br />" + AtKit.localisation("tts_timeremaining") + " <div id='sbttstimeremaining'>calculating</div><br />" + AtKit.localisation("tts_pleasewait") + "</center>"
 			}
 		};
 		var TTSFunctions = {};
@@ -76,7 +76,7 @@
 			"TTSButtons": {
 				'ttsPlay': { 
 					'tooltip': AtKit.localisation("tts_playpause"),
-					'icon': settings.baseURL + "images/control-pause.png",
+					'icon': AtKit.getPluginURL() + "images/control-pause.png",
 					'fn': function(){
 						var targetObj = ($lib.browser == "msie") ? swfobject.getObjectById(AtKit.get('ATAudioPlayerID')) : window.document['audioe'];
 						targetObj.sendEvent('play');
@@ -84,7 +84,7 @@
 				},
 				'ttsRewind': {
 					'tooltip': AtKit.localisation("tts_rewind"),
-					'icon': settings.baseURL + "images/control-stop-180.png",
+					'icon': AtKit.getPluginURL() + "images/control-stop-180.png",
 					'fn': function(){
 						var scrubAmount = 2;
 						var currentPosition = AtKit.get("TTS_position");
@@ -97,7 +97,7 @@
 				},
 				'ttsStop': {
 					'tooltip': AtKit.localisation("tts_stop"),
-					'icon': settings.baseURL + "images/control-stop-square.png",
+					'icon': AtKit.getPluginURL() + "images/control-stop-square.png",
 					'fn': function(){
 						var targetObj = ($lib.browser == "msie") ? swfobject.getObjectById(AtKit.get('ATAudioPlayerID')) : window.document['audioe'];
 						targetObj.sendEvent('stop');
@@ -271,12 +271,12 @@
 				}
 
 				if(state == "IDLE" || state == "PAUSED") {
-					$lib('#at-lnk-ttsPlay').children('img').attr('src', settings.baseURL + "images/control.png");
-					$lib('#at-btn-tts').children('img').attr('src', settings.baseURL + "images/sound.png").css('padding-top', '6px');
+					$lib('#at-lnk-ttsPlay').children('img').attr('src', AtKit.getPluginURL() + "images/control.png");
+					$lib('#at-btn-tts').children('img').attr('src', AtKit.getPluginURL() + "images/sound.png").css('padding-top', '6px');
 				} else {
 					if(AtKit.get('TTS_clickEnabled') == false){
-						$lib('#at-lnk-ttsPlay').children('img').attr('src', settings.baseURL + "images/control-pause.png");
-						$lib('#at-btn-tts').children('img').attr('src', settings.baseURL + "images/loading.gif").css('padding-top', '8px');
+						$lib('#at-lnk-ttsPlay').children('img').attr('src', AtKit.getPluginURL() + "images/control-pause.png");
+						$lib('#at-btn-tts').children('img').attr('src', AtKit.getPluginURL() + "images/loading.gif").css('padding-top', '8px');
 					}
 				}
 			}
@@ -290,7 +290,7 @@
 			AtKit.removeButton('ttsStop');
 
 	      	$lib("#flashContent").remove();
-	      	$lib('#at-lnk-tts').children('img').attr('src', settings.baseURL + "images/sound.png").css('padding-top', '6px');
+	      	$lib('#at-lnk-tts').children('img').attr('src', AtKit.getPluginURL() + "images/sound.png").css('padding-top', '6px');
 	      	AtKit.set('TTS_clickEnabled', true);
 		});
 
@@ -299,7 +299,7 @@
 		AtKit.addButton(
 			'gtts', 
 			AtKit.localisation("gtts_title"),
-			settings.baseURL + 'images/sound.png',
+			AtKit.getPluginURL() + 'images/sound.png',
 			function(dialogs, functions){
 				if(AtKit.set('TTS_clickEnabled') == false) return;
 

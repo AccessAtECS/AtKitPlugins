@@ -2,19 +2,11 @@
 
 	var pluginName = "readability";
 	var plugin = function(){
-
-		var settings = {
-			'baseURL': 'http://c.atbar.org/ATBar/'
-		};
-
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-		}
-		
+	
 		AtKit.addButton(
 			'readability', 
 			"Start Readability",
-			settings.baseURL + 'images/readability.png',
+			AtKit.getPluginURL() + 'images/readability.png',
 			function(dialogs, functions){
 				window.readabilityToken='';
 				AtKit.addScript(document.location.protocol + "//www.readability.com/bookmarklet/read.js");
