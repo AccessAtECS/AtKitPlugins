@@ -51,6 +51,9 @@
 			AtKit.getPluginURL() + 'images/book_open.png',
 			function(dialogs, functions){
 				var text = AtKit.call('getSelectedText');
+				var stored = AtKit.get('DictionaryText');
+				
+				if(text == "" && stored != "") text = stored;
 				
 				var data = eval("\"" + text.split(" ").slice(0, 1) + "\";");
 				
@@ -81,6 +84,11 @@
 			},
 			null, null
 		);
+
+		
+		$lib('#at-btn-dictionary').mouseover(function(){
+			AtKit.set('DictionaryText', AtKit.call('getSelectedText'));
+		});
 
 	}
 
