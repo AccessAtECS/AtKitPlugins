@@ -44,7 +44,7 @@
 				AtKit.message(dialogs.main);
 				
 				var storedFont = AtKit.storage('pageFont');
-				if(storedFont != false) $lib('#sbfontface').children('option[value="' + storedFont + '"]').attr('selected', 'selected');
+				if(storedFont !== false) $lib('#sbfontface').children('option[value="' + storedFont + '"]').attr('selected', 'selected');
 				
 				$lib('#ATApplyFont').click(function(){
 					AtKit.call('changeFont', { 
@@ -58,7 +58,7 @@
 			fontDialogs, null
 		);
 
-	}
+	};
 
 	if(typeof window['AtKit'] == "undefined"){
 
@@ -70,7 +70,7 @@
 			};
 		
 			this.fire = function(sender, eventArgs) {
-				if (eventAction != null) {
+				if (eventAction !== null) {
 					eventAction(sender, eventArgs);
 				}
 			};

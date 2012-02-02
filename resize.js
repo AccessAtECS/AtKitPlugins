@@ -28,7 +28,7 @@
 		
 		// If we have a stored fontsize for this page, restore it now.
 		var stored_fontSize = AtKit.storage('pageFontSize');
-		if(stored_fontSize != false) $lib('body').css('font-size', stored_fontSize + "px" );
+		if(stored_fontSize !== false) $lib('body').css('font-size', stored_fontSize + "px" );
 		
 		AtKit.addButton(
 			'resizeUp', 
@@ -50,7 +50,7 @@
 			null, null
 		);
 
-	}
+	};
 
 	if(typeof window['AtKit'] == "undefined"){
 
@@ -62,11 +62,11 @@
 			};
 		
 			this.fire = function(sender, eventArgs) {
-				if (eventAction != null) {
+				if (eventAction !== null) {
 					eventAction(sender, eventArgs);
 				}
-			};
-		}
+		};
+	}
 
 		window['AtKitLoaded'] = new AtKitLoaded();
 		window['AtKitLoaded'].subscribe(function(){ AtKit.registerPlugin(pluginName, plugin); });
