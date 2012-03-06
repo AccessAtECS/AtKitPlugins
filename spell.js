@@ -5,12 +5,12 @@
 		
 		$lib = AtKit.lib();
 		
-		settings = {
+		var spell_settings = {
 			"baseURL": "http://c.atbar.org/ATBar/"
 		};
 		
 		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
+			spell_settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
 		}
 		
 		// Internationalisation
@@ -24,20 +24,20 @@
 
 		
 		// Spell checker
-		settings.spellcheckerLoading = false;
+		spell_settings.spellcheckerLoading = false;
 		AtKit.addButton(
 			'spell', 
 			AtKit.localisation("spell_title"),
 			AtKit.getPluginURL() + 'images/spell-off.png',
 			function(dialogs, functions){
-				if(settings.spellcheckerLoading) return;
-				settings.spellcheckerLoading = true;
+				if(spell_settings.spellcheckerLoading) return;
+				spell_settings.spellcheckerLoading = true;
 				
 				var script = "spell.js";
 				
 				if(AtKit.getLanguage() == "ar") script = 'spell-ar.js';
 				
-				AtKit.addScript(settings.baseURL + script, function(){ 
+				AtKit.addScript(spell_settings.baseURL + script, function(){ 
 					
 					// Are there any TinyMCE fields on this page?
 					if((typeof AtKit.__env.window.tinyMCE) != 'undefined'){
@@ -62,10 +62,10 @@
 					}
 					
 					
-					$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: settings.baseURL });
-					$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: settings.baseURL });
+					$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });
+					$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });
 					
-					$lib('#at-lnk-spell').find('img').attr('src', settings.baseURL + "images/spell.png");
+					$lib('#at-lnk-spell').find('img').attr('src', spell_settings.baseURL + "images/spell.png");
 					
 				
 				});
