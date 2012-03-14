@@ -26,7 +26,7 @@
 		// Spell checker
 		spell_settings.spellcheckerLoading = false;
 		AtKit.addButton(
-			'spell', 
+			'spell',
 			AtKit.localisation("spell_title"),
 			AtKit.getPluginURL() + 'images/spell-off.png',
 			function(dialogs, functions){
@@ -37,7 +37,7 @@
 				
 				if(AtKit.getLanguage() == "ar") script = 'spell-ar.js';
 				
-				AtKit.addScript(spell_settings.baseURL + script, function(){ 
+				AtKit.addScript(spell_settings.baseURL + script, function(){
 					
 					// Are there any TinyMCE fields on this page?
 					if((typeof AtKit.__env.window.tinyMCE) != 'undefined'){
@@ -53,11 +53,11 @@
 					if((typeof AtKit.__env.window.CKEDITOR) != 'undefined'){
 						CKE = AtKit.__env.window.CKEDITOR;
 						for(var o in CKE.instances){
-						   	CKE.instances[o].document.on('keypress', function(){
-					    		if ( rteSpellTimer ) window.clearTimeout(rteSpellTimer);
-					    		var content = CKE.instances[o].getData();
-					    		rteSpellTimer = window.setTimeout(function() { $lib("#" + CKE.instances[o].element.getId()).rteSpellCheck(content, CKE.instances[o], { useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(),  RTEType: 'CKE' }); }, 750);
-					    	});
+							CKE.instances[o].document.on('keypress', function(){
+								if ( rteSpellTimer ) window.clearTimeout(rteSpellTimer);
+								var content = CKE.instances[o].getData();
+								rteSpellTimer = window.setTimeout(function() { $lib("#" + CKE.instances[o].element.getId()).rteSpellCheck(content, CKE.instances[o], { useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(),  RTEType: 'CKE' }); }, 750);
+							});
 						}
 					}
 					
@@ -74,7 +74,7 @@
 			null, null
 		);
 
-	}
+	};
 
 	if(typeof window['AtKit'] == "undefined"){
 
@@ -86,11 +86,11 @@
 			};
 		
 			this.fire = function(sender, eventArgs) {
-				if (eventAction != null) {
+				if (eventAction !== null) {
 					eventAction(sender, eventArgs);
 				}
 			};
-		}
+		};
 
 		window['AtKitLoaded'] = new AtKitLoaded();
 		window['AtKitLoaded'].subscribe(function(){ AtKit.registerPlugin(pluginName, plugin); });
