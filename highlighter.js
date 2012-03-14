@@ -42,6 +42,13 @@ Based on the following code, modified by Seb Skuse to work with AtKit
 			});
 		});
 
+		AtKit.addFn('unHighlight', function(selector){
+			if(selector === null) selector = "body";
+			var el = $lib(selector).find('span.atkit-highlight');
+			el.replaceWith(el.html());
+
+		});
+
 		AtKit.addFn('highlight', function(args){
 			options = args.options;
 			regex = args.regex;
@@ -49,7 +56,7 @@ Based on the following code, modified by Seb Skuse to work with AtKit
 
 			if ( typeof options === 'undefined' ) options = {};
 
-				options.className = options.className || 'highlight';
+				options.className = options.className || 'atkit-highlight';
 				options.tagType   = options.tagType   || 'span';
 
 				if ( typeof regex === 'undefined' || regex.source === '' ) {
