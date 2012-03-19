@@ -29,17 +29,24 @@
 			"spell_title" : "Start Spellchecker",
 			"spell_complete": "Spell checking complete!",
 			"spell_mistake": "Spelling Mistake",
-			"spell_suggestions": "Spelling Suggestions"
+			"spell_suggestions": "Spelling Suggestions",
+			"spell_ignore": "Ignore",
+			"spell_replace": "Replace"
 		});
 
 		AtKit.addLocalisationMap("ar", {
-			"spell_title" : "&#1575;&#1604;&#1578;&#1583;&#1602;&#1612;&#1602; &#1575;&#1575;&#1604;&#1605;&#1575;&#1604;&#1620;&#1610;&#1611;"
+			"spell_title" : "&#1575;&#1604;&#1578;&#1583;&#1602;&#1612;&#1602; &#1575;&#1575;&#1604;&#1605;&#1575;&#1604;&#1620;&#1610;&#1611;",
+			"spell_complete": "&#1578;&#1605; &#1575;&#1604;&#1575;&#1606;&#1578;&#1607;&#1575;&#1569; &#1605;&#1606; &#1575;&#1604;&#1578;&#1583;&#1602;&#1610;&#1602; &#1575;&#1604;&#1573;&#1605;&#1604;&#1575;&#1574;&#1610;",
+			"spell_mistake": "&#1582;&#1591;&#1571; &#1573;&#1605;&#1604;&#1575;&#1574;&#1610;",
+			"spell_suggestions": "&#1575;&#1602;&#1578;&#1585;&#1575;&#1581;&#1575;&#1578; &#1604;&#1578;&#1589;&#1581;&#1610;&#1581; &#1575;&#1604;&#1582;&#1591;&#1571; &#1575;&#1604;&#1573;&#1605;&#1604;&#1575;&#1574;&#1610;",
+			"spell_ignore": "&#1578;&#1580;&#1575;&#1607;&#1604;",
+			"spell_replace": "&#1575;&#1587;&#1578;&#1576;&#1583;&#1575;&#1604;"
 		});
 
 		AtKit.set('spellInitialised', false);
 
 		var complete = $lib('<div>', { "style": "" });
-		complete.append($lib('<h3>', { "text": AtKit.localisation("spell_complete") }));
+		complete.append($lib('<h3>', { "html": AtKit.localisation("spell_complete") }));
 
 
 		var spell_settings = {
@@ -186,12 +193,12 @@
 					if ( !this.results.count ) return;
 
 					var dlg = $lib('<div>', { "style": "" });
-					dlg.append($lib('<h3>', { "text": AtKit.localisation("spell_mistake") }));
+					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_mistake") }));
 					dlg.append($lib('<div>', { "id": "AtKitSpellMistakeContainer" }));
-					dlg.append($lib('<h3>', { "text": AtKit.localisation("spell_suggestions") }));
+					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_suggestions") }));
 					dlg.append($lib('<div>', { "id": "AtKitSpellSuggestionContainer" }));
-					dlg.append($lib('<button>', { "text": "Replace", "id": "AtKitSpellReplace" }));
-					dlg.append($lib('<button>', { "text": "Ignore", "id": "AtKitSpellIgnore" }));
+					dlg.append($lib('<button>', { "html": AtKit.localisation("spell_replace"), "id": "AtKitSpellReplace" }));
+					dlg.append($lib('<button>', { "html": AtKit.localisation("spell_ignore"), "id": "AtKitSpellIgnore" }));
 
 
 					var self = this;
