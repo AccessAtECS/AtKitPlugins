@@ -35,8 +35,8 @@
 		      if (this.options.trigger != 'manual') {
 		        eventIn  = this.options.trigger == 'hover' ? 'mouseenter' : 'focus'
 		        eventOut = this.options.trigger == 'hover' ? 'mouseleave' : 'blur'
-		        this.$element.on(eventIn, this.options.selector, $lib.proxy(this.enter, this))
-		        this.$element.on(eventOut, this.options.selector, $lib.proxy(this.leave, this))
+		        this.$element.bind(eventIn, this.options.selector, $lib.proxy(this.enter, this))
+		        this.$element.bind(eventOut, this.options.selector, $lib.proxy(this.leave, this))
 		      }
 		
 		      this.options.selector ?

@@ -53,7 +53,7 @@
 					if((typeof AtKit.__env.window.CKEDITOR) != 'undefined'){
 						CKE = AtKit.__env.window.CKEDITOR;
 						for(var o in CKE.instances){
-							CKE.instances[o].document.on('keypress', function(){
+							CKE.instances[o].document.bind('keypress', function(){
 								if ( rteSpellTimer ) window.clearTimeout(rteSpellTimer);
 								var content = CKE.instances[o].getData();
 								rteSpellTimer = window.setTimeout(function() { $lib("#" + CKE.instances[o].element.getId()).rteSpellCheck(content, CKE.instances[o], { useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(),  RTEType: 'CKE' }); }, 750);
