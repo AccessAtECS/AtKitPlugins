@@ -1,0 +1,219 @@
+(function(){
+
+	var pluginName = "wordprediction";
+	var plugin = function(){
+
+		$lib = AtKit.lib();
+		
+		var wpTimeout;
+
+		// Internationalisation
+		AtKit.addLocalisationMap("GB", {
+			"wp_title" : "Word Prediction",
+			"wp_ignore": "Ignore"
+		});
+
+		AtKit.addLocalisationMap("ar", {
+			"wp_title" : "&#1578;&#1588;&#1594;&#1610;&#1604; &#1605;&#1602;&#1578;&#1585;&#1581; &#1575;&#1604;&#1603;&#1604;&#1605;&#1575;&#1578;",
+			"wp_ignore": "&#1578;&#1580;&#1575;&#1607;&#1604;"
+		
+		});
+		
+		AtKit.set('WordPrediction_TextSelected', null);
+		
+		$lib('input[type="text"], textarea').bind('focus', function(){
+			AtKit.set('WordPrediction_TextSelected', $lib(this));
+		});
+
+		AtKit.addFn('getCaretPos', function(input){
+			input = input[0];
+			
+			var caret_pos;
+			// Internet Explorer Caret Position (TextArea)
+			if (document.selection && document.selection.createRange) {
+				var range = document.selection.createRange();
+				var bookmark = range.getBookmark();
+				caret_pos = bookmark.charCodeAt(2) - 2;
+			} else {
+				// Firefox Caret Position (TextArea)
+				if (input.setSelectionRange)
+				caret_pos = input.selectionStart;
+			}
+			
+			return caret_pos;
+		});
+		
+		AtKit.addFn('setCaretPos', function(args){
+			var elem = args.input[0];
+		
+			if(elem !== null) {
+				if(elem.createTextRange) {
+					var range = elem.createTextRange();
+					range.move('character', args.position);
+					range.select();
+				} else {
+					if(elem.selectionStart) {
+						elem.focus();
+						elem.setSelectionRange(args.position, args.position);
+					} else {
+						elem.focus();
+					}
+				}
+			}
+		});
+
+		AtKit.addButton(
+			'wordprediction',
+			AtKit.localisation("wp_title"),
+			AtKit.getPluginURL() + 'images/fugue/control-cursor.png',
+			function(dialogs, functions){
+
+				$lib('input[type="text"], textarea').bind('keydown', function(e){
+					clearTimeout(wpTimeout);
+
+					if(e.keyCode == 27) $lib('#AtKitWordPrediction').remove();
+
+					wpTimeout = setTimeout(function(){
+						var el = AtKit.get('WordPrediction_TextSelected');
+						if(el === null) return;
+					
+						var elData = el.val();
+					
+						var pos = AtKit.call('getCaretPos', el);
+						AtKit.set('WordPrediction_CaretPos', pos);
+						
+						var leadingText = elData.substring(0, pos).split(" ").slice(-6).join(" ");
+						var trailingText = elData.substring(pos).split(" ").slice(0, 2).join(" ");
+						
+						var oldURL = "http://a.atbar.org/prediction/?l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
+						var newURL = "http://predict.atbar.org/";
+
+						if(AtKit.getLanguage() == "ar") {
+							newURL += "AR/";
+						} else {
+							newURL += "EN/";
+						}
+
+						newURL += "predict?l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
+
+						$lib.getJSON(newURL, function(response){
+							var data = response.payload.split(";");
+							
+							var input = data.splice(0, 2);
+
+							// Remove any digits signifying liklihood
+							$lib.each(input, function(i, v){
+								if(!isNaN(input[i].charAt(0))) input[i] = input[i].substring(1);
+							});
+
+							//console.log(input);
+
+							var offset = el.offset();
+							var height = el.height();
+							var width = el.width();
+							var top = offset.top + height + "px";
+							var right = offset.left + width + "px";
+							
+							var suggestions = "";
+
+							if($lib('#AtKitWordPrediction').length === 0){
+								suggestions = $lib('<div>', { "id": "AtKitWordPrediction" }).css({
+									"position": "absolute",
+									"left": offset.left,
+									"width": width,
+									"top": top,
+									"background": "white",
+									"font-size": "16pt",
+									"font-weight": "bold",
+									"color": "black",
+									"border": "2px solid black",
+									"padding": "10px"
+								});
+							} else {
+								suggestions = $lib('#AtKitWordPrediction').empty();
+							}
+							
+							suggestions.append($lib("<dl>"));
+							
+							suggestions.children("dl").append(
+								$lib("<dt>").append(
+									$lib("<a>", { "href": "#", "html": AtKit.localisation("wp_ignore"), "style": "color:red" }).bind('click', function(){
+										$lib('#AtKitWordPrediction').remove();
+										el.focus();
+									})
+								)
+							);
+
+							for(i = 0; i < data.length; i++){
+								var suggestion = data[i];
+								
+								// Get number 0-9 representing likelihood of word being correct.
+								var likelihood = suggestion.charAt(0);
+
+								// Remove the liklihood from the string.
+								suggestion = suggestion.substring(1);
+
+								var link = $lib('<a>', { "html": suggestion, "href": "#" }).bind('click', function(e){
+									var pos = AtKit.get('WordPrediction_CaretPos');
+									var toInsert = $lib(this).text() + " ";
+									var el = AtKit.get('WordPrediction_TextSelected');
+	
+									var start = pos - input[0].length;
+									var end = pos + input[1].length;
+									
+									//console.log('Caret position: ' + pos + ", inserting text '" + toInsert + "'");
+									//console.log("at pos start " + start + ", end " + end + " identified substring is '" + el.val().substring(start, end) + "'");
+									
+									el.val( el.val().substring(0, start) + toInsert + el.val().substring(end) );
+									
+									suggestions.remove();
+									
+									el.focus();
+
+									AtKit.call('setCaretPos', {
+										input: el,
+										position: start + toInsert.length
+									});
+									
+									e.preventDefault();
+									return false;
+								});
+								
+								var newEl = $lib('<dt>', { "style": "padding:6px" }).append(link);
+								
+								suggestions.children("dl").append(newEl);
+							}
+							
+							el.after(suggestions);
+						});
+					
+					}, 500);
+				});
+			}
+		);
+
+	};
+
+	if(typeof window['AtKit'] == "undefined"){
+
+		window.AtKitLoaded = function(){
+			var eventAction = null;
+		
+			this.subscribe = function(fn) {
+				eventAction = fn;
+			};
+		
+			this.fire = function(sender, eventArgs) {
+				if (eventAction !== null) {
+					eventAction(sender, eventArgs);
+				}
+			};
+		};
+
+		window['AtKitLoaded'] = new AtKitLoaded();
+		window['AtKitLoaded'].subscribe(function(){ AtKit.registerPlugin(pluginName, plugin); });
+	} else {
+		AtKit.registerPlugin(pluginName, plugin);
+	}
+
+})();
