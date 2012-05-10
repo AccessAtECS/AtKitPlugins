@@ -284,6 +284,9 @@
 				// Initialise spelling if not already
 				if(AtKit.get('spellInitialised') === false) AtKit.call('initSpell');
 
+				$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });
+				$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });
+
 				// Are there any TinyMCE fields on this page?
 				if((typeof AtKit.__env.window.tinyMCE) != 'undefined'){
 					tinyMCE = AtKit.__env.window.tinyMCE;
@@ -305,10 +308,6 @@
 						});
 					}
 				}
-				
-				
-				$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });
-				$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });
 				
 				$lib('#at-lnk-spell').find('img').attr('src', spell_settings.baseURL + "images/spell.png");
 					
