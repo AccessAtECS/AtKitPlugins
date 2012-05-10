@@ -28,16 +28,16 @@
 
 
 		// Add functions to AtKit.
-		AtKit.addFn('getSelectedText', function(strip){ 
+		AtKit.addFn('getSelectedText', function(strip){
 			var text = '';
-		     if (window.getSelection){
-		        text = window.getSelection();
-		     } else if (document.getSelection){
-		        text = document.getSelection();
-		     } else if (document.selection){
-		        text = document.selection.createRange().text;
-		     }
-		    if(strip == true){
+		    if (document.selection && document.selection.type != "Control") {
+				text = document.selection.createRange().text;
+			} else if (window.getSelection){
+				text = window.getSelection().toString();
+			} else if (document.getSelection){
+				text = document.getSelection();
+		    }
+		    if(strip === true){
 				return String(text).replace(/([\s]+)/ig, '');
 			} else {
 				return String(text);
