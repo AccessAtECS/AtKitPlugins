@@ -17,8 +17,7 @@
 		AtKit.addLocalisationMap("ar", {
 			"wp_title" : "&#1578;&#1588;&#1594;&#1610;&#1604; &#1605;&#1602;&#1578;&#1585;&#1581; &#1575;&#1604;&#1603;&#1604;&#1605;&#1575;&#1578;",
 			"wp_ignore": "&#1578;&#1580;&#1575;&#1607;&#1604;",
-			"wp_instruct": "Keystrokes: esc to close, Ctrl + Alt + (1, 2, 3 etc)"
-		
+			"wp_instruct": "&#1605;&#1601;&#1575;&#1578;&#1610;&#1581;: Esc &#1604;&#1604;&#1582;&#1585;&#1608;&#1580;&#1548; Ctrl+Alt+(1,2,3...)"	
 		});
 		
 		AtKit.set('WordPrediction_TextSelected', null);
@@ -202,14 +201,12 @@
 							// Bind shortcutkeys
 							
 							textElement.keyup(function (e) {
-								if(e.which == 17) ctrlModifier = false;
-								if(e.which == 18) altModifier = false;
+								if(e.keyCode == 17) ctrlModifier = false;
+								if(e.keyCode == 18) altModifier = false;
 							}).keydown(function (e) {
-								if(e.which == 17) ctrlModifier = true;
-								if(e.which == 18) altModifier = true;
-							});
-							
-							textElement.keypress(function(e){
+								if(e.keyCode == 17) ctrlModifier = true;
+								if(e.keyCode == 18) altModifier = true;
+								
 								offset = 48;
 								// Are the modifier keys held down?
 								if(ctrlModifier && altModifier && (e.keyCode >= 49 && e.keyCode <= 57)) {
@@ -220,11 +217,16 @@
 									
 									$lib('#AtKitWordPrediction').children('a:eq(' + numKey + ')').click();
 									
-									e.preventDefault();
+									if(e.preventDefault){ e.preventDefault()
+									}else{e.stop()};
+									
+									e.returnValue = false;
+									e.stopPropagation();  
 									
 									textElement.trigger('keydown');
-								}							
+								}	
 							});
+
 						});
 					
 					}, 500);
