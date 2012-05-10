@@ -10,12 +10,14 @@
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
 			"wp_title" : "Word Prediction",
-			"wp_ignore": "Ignore"
+			"wp_ignore": "Ignore",
+			"wp_instruct": "Keystrokes: esc to close, Ctrl + Alt + (1, 2, 3 etc)"
 		});
 
 		AtKit.addLocalisationMap("ar", {
 			"wp_title" : "&#1578;&#1588;&#1594;&#1610;&#1604; &#1605;&#1602;&#1578;&#1585;&#1581; &#1575;&#1604;&#1603;&#1604;&#1605;&#1575;&#1578;",
-			"wp_ignore": "&#1578;&#1580;&#1575;&#1607;&#1604;"
+			"wp_ignore": "&#1578;&#1580;&#1575;&#1607;&#1604;",
+			"wp_instruct": "Keystrokes: esc to close, Ctrl + Alt + (1, 2, 3 etc)"
 		
 		});
 		
@@ -65,13 +67,20 @@
 		AtKit.addButton(
 			'wordprediction',
 			AtKit.localisation("wp_title"),
-			AtKit.getPluginURL() + 'images/fugue/control-cursor.png',
+			AtKit.getPluginURL() + 'images/aitype.png',
 			function(dialogs, functions){
 
-				$lib('input[type="text"], textarea').bind('keydown', function(e){
-					clearTimeout(wpTimeout);
+				ctrlModifier = false;
+				altModifier = false;
 
-					if(e.keyCode == 27) $lib('#AtKitWordPrediction').remove();
+				$lib('input[type="text"], textarea').bind('keydown', function(e){
+					if(e.which == 17 || e.which == 18 || ctrlModifier || altModifier) return; // ctrl & alt keys ignore.
+					
+					clearTimeout(wpTimeout);
+					
+					var textElement = $lib(this);
+					
+					if(e.keyCode == 27) return $lib('#AtKitWordPrediction').remove();
 
 					wpTimeout = setTimeout(function(){
 						var el = AtKit.get('WordPrediction_TextSelected');
@@ -108,44 +117,43 @@
 
 							//console.log(input);
 
-							var offset = el.offset();
-							var height = el.height();
+							var pos = el.position();
 							var width = el.width();
-							var top = offset.top + height + "px";
-							var right = offset.left + width + "px";
-							
+							var height = el.outerHeight();
+
+
 							var suggestions = "";
 
 							if($lib('#AtKitWordPrediction').length === 0){
 								suggestions = $lib('<div>', { "id": "AtKitWordPrediction" }).css({
 									"position": "absolute",
-									"left": offset.left,
+									"left": pos.left + "px",
 									"width": width,
-									"top": top,
+									"top": (5 + pos.top + height) + "px",
 									"background": "white",
 									"font-size": "16pt",
 									"font-weight": "bold",
 									"color": "black",
 									"border": "2px solid black",
+									"z-index": "9999999999",
 									"padding": "10px"
 								});
 							} else {
 								suggestions = $lib('#AtKitWordPrediction').empty();
 							}
 							
-							suggestions.append($lib("<dl>"));
 							
-							suggestions.children("dl").append(
-								$lib("<dt>").append(
-									$lib("<a>", { "href": "#", "html": AtKit.localisation("wp_ignore"), "style": "color:red" }).bind('click', function(){
-										$lib('#AtKitWordPrediction').remove();
-										el.focus();
-									})
-								)
+							suggestions.append(
+								$lib("<a>", { "href": "#", "html": AtKit.localisation("wp_ignore"), "style": "color:red;padding-right:10px;float:left;" }).bind('click', function(){
+									$lib('#AtKitWordPrediction').remove();
+									el.focus();
+								})
 							);
 
 							for(i = 0; i < data.length; i++){
 								var suggestion = data[i];
+								
+								if(suggestion == "") continue;
 								
 								// Get number 0-9 representing likelihood of word being correct.
 								var likelihood = suggestion.charAt(0);
@@ -153,9 +161,9 @@
 								// Remove the liklihood from the string.
 								suggestion = suggestion.substring(1);
 
-								var link = $lib('<a>', { "html": suggestion, "href": "#" }).bind('click', function(e){
+								var link = $lib('<a>', { "html": suggestion, "href": "#", "style": "padding-right:10px;float:left;" }).data('suggestion', suggestion).bind('click', function(e){
 									var pos = AtKit.get('WordPrediction_CaretPos');
-									var toInsert = $lib(this).text() + " ";
+									var toInsert = $lib(this).data('suggestion') + " ";
 									var el = AtKit.get('WordPrediction_TextSelected');
 	
 									var start = pos - input[0].length;
@@ -179,12 +187,44 @@
 									return false;
 								});
 								
-								var newEl = $lib('<dt>', { "style": "padding:6px" }).append(link);
-								
-								suggestions.children("dl").append(newEl);
+								suggestions.append(link);
 							}
 							
+							
+							// Add the information div.
+							var info = $lib('<p>', { "html": AtKit.localisation("wp_instruct"), "style": "font-size:12pt; padding-top:10px;clear:left" });
+							
+							suggestions.append(info);
+							
+							// Insert the suggestions into the DOM
 							el.after(suggestions);
+							
+							// Bind shortcutkeys
+							
+							textElement.keyup(function (e) {
+								if(e.which == 17) ctrlModifier = false;
+								if(e.which == 18) altModifier = false;
+							}).keydown(function (e) {
+								if(e.which == 17) ctrlModifier = true;
+								if(e.which == 18) altModifier = true;
+							});
+							
+							textElement.keypress(function(e){
+								offset = 48;
+								// Are the modifier keys held down?
+								if(ctrlModifier && altModifier && (e.keyCode >= 49 && e.keyCode <= 57)) {
+									numKey = e.keyCode - offset;
+									
+									ctrlModifier = false;
+									altModifier = false;
+									
+									$lib('#AtKitWordPrediction').children('a:eq(' + numKey + ')').click();
+									
+									e.preventDefault();
+									
+									textElement.trigger('keydown');
+								}							
+							});
 						});
 					
 					}, 500);
