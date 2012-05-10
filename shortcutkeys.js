@@ -17,8 +17,8 @@
 
 			// If we don't have the T modifier just get the first button.
 			if(e.which == 49 && ctrlModifier && !TModifier) {
-				$lib('.at-btn:eq(2) a').focus();
-				return false;
+				//$lib('.at-btn:eq(2) a').focus();
+				//return false;
 			} else if( e.which >= 49 && e.which <= 57 && ctrlModifier && TModifier){
 				// Select the button at offset
 				$lib('.at-btn:eq(' + ( String.fromCharCode(e.which) - 1 ) + ') a').focus();
