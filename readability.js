@@ -4,7 +4,7 @@
 	var plugin = function(){
 	
 		AtKit.addButton(
-			'readability',
+			'readability', 
 			"Start Readability",
 			AtKit.getPluginURL() + 'images/readability.png',
 			function(dialogs, functions){
@@ -13,7 +13,7 @@
 			}
 		);
 
-	};
+	}
 
 	if(typeof window['AtKit'] == "undefined"){
 
@@ -25,11 +25,11 @@
 			};
 		
 			this.fire = function(sender, eventArgs) {
-				if (eventAction !== null) {
+				if (eventAction != null) {
 					eventAction(sender, eventArgs);
 				}
 			};
-		};
+		}
 
 		window['AtKitLoaded'] = new AtKitLoaded();
 		window['AtKitLoaded'].subscribe(function(){ AtKit.registerPlugin(pluginName, plugin); });

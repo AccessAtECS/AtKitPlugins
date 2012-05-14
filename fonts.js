@@ -14,7 +14,7 @@
 		});
 
 		AtKit.addLocalisationMap("ar", {
-			"fonts_dialogTitle" : "&#1578;&#1594;&#1612;&#1612;&#1585; &#1606;&#1608;&#1593; &#1608;&#1606;&#1605;&#1591; &#1575;&#1604;&#1582;&#1591;",
+			"fonts_dialogTitle" : "&#1575;&#1604;&#1578;&#1581;&#1603;&#1605; &#1601;&#1610; &#1606;&#1608;&#1593; &#1575;&#1604;&#1582;&#1591;",
 			"fonts_fontFace" : "&#1606;&#1608;&#1593; &#1575;&#1604;&#1582;&#1591;",
 			"fonts_lineSpacing": "&#1575;&#1604;&#1605;&#1587;&#1575;&#1601;&#1575;&#1578; &#1576;&#1610;&#1606; &#1575;&#1604;&#1571;&#1587;&#1591;&#1585;",
 			"fonts_apply": "&#1578;&#1591;&#1576;&#1610;&#1602;"
@@ -44,7 +44,7 @@
 				AtKit.message(dialogs.main);
 				
 				var storedFont = AtKit.storage('pageFont');
-				if(storedFont !== false) $lib('#sbfontface').children('option[value="' + storedFont + '"]').attr('selected', 'selected');
+				if(storedFont != false) $lib('#sbfontface').children('option[value="' + storedFont + '"]').attr('selected', 'selected');
 				
 				$lib('#ATApplyFont').click(function(){
 					AtKit.call('changeFont', { 
@@ -58,7 +58,7 @@
 			fontDialogs, null
 		);
 
-	};
+	}
 
 	if(typeof window['AtKit'] == "undefined"){
 
@@ -70,7 +70,7 @@
 			};
 		
 			this.fire = function(sender, eventArgs) {
-				if (eventAction !== null) {
+				if (eventAction != null) {
 					eventAction(sender, eventArgs);
 				}
 			};

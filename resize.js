@@ -12,8 +12,8 @@
 		});
 
 		AtKit.addLocalisationMap("ar", {
-			"resize_up" : "&#1586;&#1612;&#1575;&#1583;&#1577; &#1581;&#1580;&#1605; &#1575;&#1604;&#1582;&#1591;",
-			"resize_down" : "&#1575;&#1606;&#1602;&#1575;&#1589; &#1581;&#1580;&#1605; &#1575;&#1604;&#1582;&#1591;"
+			"resize_up" : "&#1578;&#1603;&#1576;&#1610;&#1585; &#1581;&#1580;&#1605; &#1575;&#1604;&#1582;&#1591;",
+			"resize_down" : "&#1578;&#1589;&#1594;&#1610;&#1585; &#1581;&#1580;&#1605; &#1575;&#1604;&#1582;&#1591;"
 		});
 
 		AtKit.addFn('resizeText', function(multiplier){
@@ -28,7 +28,7 @@
 		
 		// If we have a stored fontsize for this page, restore it now.
 		var stored_fontSize = AtKit.storage('pageFontSize');
-		if(stored_fontSize !== false) $lib('body').css('font-size', stored_fontSize + "px" );
+		if(stored_fontSize != false) $lib('body').css('font-size', stored_fontSize + "px" );
 		
 		AtKit.addButton(
 			'resizeUp', 
@@ -50,7 +50,7 @@
 			null, null
 		);
 
-	};
+	}
 
 	if(typeof window['AtKit'] == "undefined"){
 
@@ -62,11 +62,11 @@
 			};
 		
 			this.fire = function(sender, eventArgs) {
-				if (eventAction !== null) {
+				if (eventAction != null) {
 					eventAction(sender, eventArgs);
 				}
-		};
-	}
+			};
+		}
 
 		window['AtKitLoaded'] = new AtKitLoaded();
 		window['AtKitLoaded'].subscribe(function(){ AtKit.registerPlugin(pluginName, plugin); });

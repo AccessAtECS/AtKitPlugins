@@ -15,18 +15,14 @@
 		
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
-			"spell_title" : "Start Google Translate"
-		});
-
-		AtKit.addLocalisationMap("ar", {
-			"spell_title" : "&#1575;&#1604;&#1578;&#1583;&#1602;&#1612;&#1602; &#1575;&#1575;&#1604;&#1605;&#1575;&#1604;&#1620;&#1610;&#1611;"
+			"calculator_title" : "Start calculator"
 		});
 		
 		// Spell checker
 		AtKit.addButton(
 			'calculator', 
-			AtKit.localisation("spell_title"),
-			AtKit.getPluginURL() + 'images/spell-off.png',
+			AtKit.localisation("calculator_title"),
+			AtKit.getPluginURL() + 'images/calculator.png',
 			function(dialogs, functions){
 
 
