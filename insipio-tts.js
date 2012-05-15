@@ -8,10 +8,10 @@
 		var settings = {
 			"baseURL": "http://c.atbar.org/ATBar/",
 			"serverURL": 'http://a.atbar.org/',
-			"ttsChunkSize": 1500
+			"ttsChunkSize": 400
 		};
 
-		if(AtKit.getLanguage() == "ar") settings.ttsChunkSize = 400;
+		//if(AtKit.getLanguage() == "ar") settings.ttsChunkSize = 400;
 
 		if(/https:/.test(window.location.protocol)){
 			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
@@ -149,7 +149,10 @@
 
 				/* exploder */
 				(document.selection && function() {
-
+				
+					var nn = $lib(e).prop('nodeName');
+					if(nn != "input" && nn != "textarea") return null;
+					
 					e.focus();
 
 					var r = document.selection.createRange();
@@ -402,7 +405,7 @@
 
 		AtKit.set('TTS_clickEnabled', true);
 		
-		$lib(document).delegate('#at-btn-tts', 'mousemove, focus', function(){
+		$lib(document).delegate('#at-btn-tts', 'mousemove, focus, mouseover', function(){
 			var text = AtKit.call('getSelectedText');
 			if(typeof text == "undefined" || text == "") return;		
 			AtKit.set('TTSselectedData', text);
