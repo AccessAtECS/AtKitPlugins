@@ -112,7 +112,7 @@
 		
 
 		// Add functions to AtKit.
-		AtKit.addFn('getSelectedText', function(strip){
+		AtKit.addFn('getSelectedTextTTS', function(strip){
 			
 			var text = AtKit.call('getSelectedTextInElement');
 			
@@ -406,7 +406,7 @@
 		AtKit.set('TTS_clickEnabled', true);
 		
 		$lib(document).delegate('#at-btn-tts', 'mousemove, focus, mouseover', function(){
-			var text = AtKit.call('getSelectedText');
+			var text = AtKit.call('getSelectedTextTTS');
 			if(typeof text == "undefined" || text == "") return;		
 			AtKit.set('TTSselectedData', text);
 		});
@@ -418,7 +418,7 @@
 			function(dialogs, functions){
 				if(AtKit.set('TTS_clickEnabled') == false) return;
 				
-				var text = AtKit.call('getSelectedText');
+				var text = AtKit.call('getSelectedTextTTS');
 
 				if(AtKit.get('TTSselectedData') == "" && text != "") AtKit.set('TTSselectedData', text);
 
@@ -460,6 +460,8 @@
 					AtKit.set('TTS_clickEnabled', false);
 
 					var selectedData = AtKit.get('TTSselectedData');
+					if(selectedData == "" || typeof selectedData == "undefined") selectedData = AtKit.call('getSelectedTextTTS');
+					
 					if(typeof selectedData != "undefined" && selectedData !== ""){
 				
 					this.clickEnabled = false;
