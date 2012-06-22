@@ -15,13 +15,13 @@
 		
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
-			"wave_title" : "Use W3C HTML validator"
+			"plugin_title" : "Use W3C HTML validator"
 		});
 		
 		// WAVE
 		AtKit.addButton(
 			'w3c', 
-			AtKit.localisation("wave_title"),
+			AtKit.localisation("plugin_title"),
 			AtKit.getPluginURL() + 'images/w3c.png',
 			function(dialogs, functions){
 
