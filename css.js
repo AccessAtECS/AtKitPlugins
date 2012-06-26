@@ -145,30 +145,35 @@
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings.baseURL + "stylesheets/high-yo.css", "highvis-yo");
+					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings.baseURL + "stylesheets/high-rtl.css", "high-rtl-yo");
 				});
 				
 				$lib('#sbApplyCSS-wb').click(function(e){ 
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings.baseURL + "stylesheets/high-wb.css", "highvis-wb");
+					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings.baseURL + "stylesheets/high-rtl.css", "high-rtl-wb");
 				});
 				
 				$lib('#sbApplyCSS-wbw').click(function(e){
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings.baseURL + "stylesheets/high-bw.css", "highvis-wbw");
+					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings.baseURL + "stylesheets/high-rtl.css", "high-rtl-wbw");
 				});
 				
 				$lib('#sbApplyCSS-by').click(function(e){
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings.baseURL + "stylesheets/high-by.css", "highvis-by");
+					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings.baseURL + "stylesheets/high-rtl.css", "high-rtl-by");
 				});
 				
 				$lib('#sbApplyCSS-gw').click(function(e){
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings.baseURL + "stylesheets/high-gw.css", "highvis-by");
+					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings.baseURL + "stylesheets/high-rtl.css", "high-rtl-by");
 				});	
 				
 				
