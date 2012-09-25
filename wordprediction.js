@@ -93,9 +93,10 @@
 						var leadingText = elData.substring(0, pos).split(" ").slice(-6).join(" ");
 						var trailingText = elData.substring(pos).split(" ").slice(0, 2).join(" ");
 						
-						var oldURL = "http://a.atbar.org/prediction/?l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
-						var newURL = "http://predict.atbar.org/";
+						var URL = "http://a.atbar.org/prediction/?l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
+						//var newURL = "http://predict.atbar.org/";
 
+						/*
 						if(AtKit.getLanguage() == "ar") {
 							newURL += "AR/";
 						} else {
@@ -103,8 +104,9 @@
 						}
 
 						newURL += "predict?l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
-
-						$lib.getJSON(newURL, function(response){
+						*/
+						
+						$lib.getJSON(URL, function(response){
 							var data = response.payload.split(";");
 							
 							var input = data.splice(0, 2);
