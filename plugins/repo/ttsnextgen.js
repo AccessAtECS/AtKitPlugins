@@ -44,10 +44,27 @@
 
 		// Actual plugin code starts here.
 
+
+		AtKit.addFn('getSelectedText', function(strip){
+			var text = '';
+			if (window.getSelection){
+				text = window.getSelection();
+			} else if (document.getSelection){
+				text = document.getSelection();
+			} else if (document.selection){
+				text = document.selection.createRange().text;
+			}
+			if(strip === true){
+				return String(text).replace(/([\s]+)/ig, '');
+			} else {
+				return String(text);
+			}
+
+		});
+
 		// Code to initialise speech engine
 		AtKit.addFn('initSpeech', function(){
 			// Import jPlayer.
-			console.log('test');
 			AtKit.addScript(ttsnextgen_settings.baseURL + '/jPlayer/jquery.jplayer.min.js', function(){
 				// Once we have jplayer ready, add a player container.
 				if($lib('#AtKitAudioContainer').length === 0) {
@@ -66,7 +83,7 @@
 						AtKit.set('PlayerReady', true);
 					},
 					timeupdate: function(event){
-						console.log('timeupdate');
+						//console.log('timeupdate');
 					},
 					play: function(event){},
 					pause: function(event){},
@@ -79,7 +96,6 @@
 
 				AtKit.set('PlayerReady', true);
 
-				console.log(AtKitPlayer);
 			});
 
 
@@ -203,8 +219,6 @@
 
 			// When this is hooked up to the TTS this is where we hook into swfobject's start playing.
 			AtKit.lib().getJSON(ttsnextgen_settings.serverURL + "TTS/request.php?l=" + AtKit.getLanguage() + "&t=" + encodeURIComponent(thisNode) + "&callback=?", function(response){
-				console.log(response);
-
 				if(response.success){
 					// Set the file URL
 					AtKitPlayer.jPlayer("setMedia", { mp3: response.fileURL });

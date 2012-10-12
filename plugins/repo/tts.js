@@ -433,14 +433,6 @@
 			},
 			TTSDialogs, TTSFunctions, TTSExtendedObject
 		);
-		
-		
-		// 
-		$lib('a#at-lnk-tts').hover(function(e){
-			console.log('test');
-			var selectedData = AtKit.call('getSelectedText');
-		});
-
 
 	};
 
