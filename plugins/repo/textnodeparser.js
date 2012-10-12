@@ -3,28 +3,17 @@
 	var pluginName = "ttsnextgen";
 	var plugin = function(){
 
-		var $lib = AtKit.lib();
+		$lib = AtKit.lib();
 		
 		var ttsnextgen_settings = {
-			"baseURL": "http://c.atbar.org/",
-			"contentThreshold": 1024,
-			"serverURL" : "http://a.atbar.org/"
+			"baseURL": "http://c.atbar.org/ATBar/",
+			"contentThreshold": 1024
 		};
 
 		var pendingNodes = [];
-
-		var AtKitPlayer = {};
-		
-		// Array of audio to play.
-		var PlayerStack = [];
-
-		var PlayerFinishFn = {};
-
-		AtKit.set('PlayerReady', false);
 		
 		if(/https:/.test(window.location.protocol)){
-			ttsnextgen_settings.baseURL = "https://ssl.atbar.org/c/";
-			ttsnextgen_settings.serverURL = "https://ssl.atbar.org/a/";
+			ttsnextgen_settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
 		}
 		
 		// Internationalisation
@@ -43,47 +32,6 @@
 
 
 		// Actual plugin code starts here.
-
-		// Code to initialise speech engine
-		AtKit.addFn('initSpeech', function(){
-			// Import jPlayer.
-			console.log('test');
-			AtKit.addScript(ttsnextgen_settings.baseURL + '/jPlayer/jquery.jplayer.min.js', function(){
-				// Once we have jplayer ready, add a player container.
-				if($lib('#AtKitAudioContainer').length === 0) {
-					$lib('body').append(
-						$lib('<div>', { "id": "AtKitAudioContainer", height: "0px", width:"0px" })
-					);
-				}
-
-				// Invoke jPlayer.
-				AtKitPlayer = $lib('#AtKitAudioContainer').jPlayer({
-					wmode: "window",
-					swfPath: ttsnextgen_settings.baseURL + "jPlayer/Jplayer.swf",
-					noConflict: "AtKit.lib()",
-					ready: function(){
-						console.log('JPlayer calls ready');
-						AtKit.set('PlayerReady', true);
-					},
-					timeupdate: function(event){
-						console.log('timeupdate');
-					},
-					play: function(event){},
-					pause: function(event){},
-					ended: function(event){
-						//alert('ended');
-						PlayerFinishFn();
-					},
-					errorAlerts: true
-				});
-
-				AtKit.set('PlayerReady', true);
-
-				console.log(AtKitPlayer);
-			});
-
-
-		});
 
 		// Get all text nodes in element specified by el
 		// And any children of el
@@ -202,30 +150,16 @@
 			var thisNode = n.nodes[0];
 
 			// When this is hooked up to the TTS this is where we hook into swfobject's start playing.
-			AtKit.lib().getJSON(ttsnextgen_settings.serverURL + "TTS/request.php?l=" + AtKit.getLanguage() + "&t=" + encodeURIComponent(thisNode) + "&callback=?", function(response){
-				console.log(response);
-
-				if(response.success){
-					// Set the file URL
-					AtKitPlayer.jPlayer("setMedia", { mp3: response.fileURL });
-
-					AtKit.call('highlight', {
-						"regex": new RegExp(thisNode, 'ig'),
-						"element": n.target
-					});
-
-					// Play the media
-					AtKitPlayer.jPlayer("play");
-
-					PlayerFinishFn = function(){
-						AtKit.call('unHighlight', n.target);
-						AtKit.call('startTalking');
-					};
-
-				} else {
-					alert(response.message);
-				}
+			AtKit.call('highlight', {
+				"regex": new RegExp(thisNode, 'ig'),
+				"element": n.target
 			});
+
+			// When this is hooked up this will be replaced with callback from swfobject.
+			setTimeout(function(){
+				AtKit.call('unHighlight', n.target);
+				AtKit.call('startTalking');
+			}, 2000);
 
 			// If the node has more children, shift one off the stack.
 			if(n.nodes.length > 0) n.nodes.shift();
@@ -238,9 +172,6 @@
 			AtKit.localisation("ttsnextgen_title"),
 			AtKit.getPluginURL() + 'images/fugue/balloon.png',
 			function(dialogs, functions){
-				// Initialise speech engine if its not been initialised already
-				if(AtKit.get('PlayerReady') === false) AtKit.call('initSpeech');
-
 				// Analyse section of the webpage for readable text.
 				AtKit.call('analyseSection', $lib('.span11'));
 
