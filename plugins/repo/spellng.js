@@ -22,8 +22,13 @@
 		
 		$lib = AtKit.lib();
 		
-		$lib.sb_spellVersion = '3.5';
-
+		$lib.sb_spellVersion = '3.6';
+		
+		var spellngIncorrect = null;
+		var spellngCorrection = null;
+		var spellngIgnore = 0;
+		
+		
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
 			"spell_title" : "Start Spellchecker",
@@ -72,7 +77,17 @@
 			}
 			
 		});
-
+		
+		AtKit.addFn('recordSpellng', function(){
+	
+			var spellngRecordURL = "http://core.atbar.org/API/record-spellng.php?l=" + AtKit.getLanguage() + "&e=" + spellngIncorrect + "&c=" + spellngCorrection + "&i=" + spellngIgnore;
+			
+			$lib("#sbar").prepend('<img src="' + spellngRecordURL + '" />');
+			
+			spellngIncorrect = null;
+			spellngCorrection = null;
+			spellngIgnore = 0;
+		});
 
 		AtKit.addFn('initSpell', function(){
 			$lib.fn.spellcheck = function(options) {
@@ -241,6 +256,14 @@
 
 					// Ignore this mistake
 					$lib('#AtKitSpellIgnore').click(function(){
+						// Record error and correction
+						spellngIgnore = 1;
+						
+						var selector = "#spellcheckmistakes";
+						var mistake = dlg.find(selector).val();
+						spellngIncorrect = mistake;
+						AtKit.call('recordSpellng');
+						
 						AtKit.call('removeIncorrectWord');
 					});
 
@@ -249,7 +272,13 @@
 
 						var mistake = dlg.find(selector).val();
 						var replacement = dlg.find("#spellchecksuggestions").val();
-
+						
+						// Record error and correction
+						spellngIgnore = 0;
+						spellngIncorrect = mistake;
+						spellngCorrection = replacement;
+						AtKit.call('recordSpellng');
+						
 						if(self.isRTE === false || (typeof self.isRTE) == 'undefined'){
 							self.$element.val( self.$element.val().replace( mistake, replacement ) );
 						} else {
