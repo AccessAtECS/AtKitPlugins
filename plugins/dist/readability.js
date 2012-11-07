@@ -1,2 +1,0 @@
-(function(){var a=function(){AtKit.addButton("readability","Start Readability",AtKit.getPluginURL()+"images/readability.png",function(){window.readabilityToken="";AtKit.addScript(document.location.protocol+"//www.readability.com/bookmarklet/read.js")})};typeof window.AtKit=="undefined"?(window.AtKitLoaded=function(){var b=null;this.subscribe=function(c){b=c};this.fire=function(c,a){b!=null&&b(c,a)}},window.AtKitLoaded=new AtKitLoaded,window.AtKitLoaded.subscribe(function(){AtKit.registerPlugin("readability",
-a)})):AtKit.registerPlugin("readability",a)})();
