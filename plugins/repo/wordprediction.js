@@ -93,13 +93,12 @@
 						var leadingText = elData.substring(0, pos).split(" ").slice(-6).join(" ");
 						var trailingText = elData.substring(pos).split(" ").slice(0, 2).join(" ");
 						
-						//var URL = "http://a.atbar.org/prediction/?l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
-						var newURL = "http://predict.atbar.org/";
+						var predictURL = "http://predict.atbar.org/wordprediction";
 
 						if(AtKit.getLanguage() == "ar") {
-							newURL += "AR/";
+							predictURL += "AR/";
 						} else {
-							newURL += "EN/";
+							predictURL += "EN/";
 						}
 
 						newURL += "predict?l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
