@@ -1,1 +1,1 @@
-AtBar plugin server
+<h2>ATbar Plugins</h2>
