@@ -4,7 +4,7 @@
 	var plugin = function(){
 
 		var settings_css = {
-			'baseURL': 'http://c.atbar.org/ATBar/'
+			'baseURL': 'http://core.atbar.org/';
 		};
 		
 		if(/https:/.test(window.location.protocol)){
@@ -14,7 +14,7 @@
 		$lib = AtKit.lib();
 
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"css_title" : "Change Styles",
 			"css_changeColour" : "Change colour settings",
 			"css_changeToolbar": "Change Toolbar colour",

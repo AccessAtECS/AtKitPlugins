@@ -17,7 +17,7 @@
 		}
 
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"tts_title" : "Text to Speech",
 			"tts_options": "Text to Speech Options",
 			"tts_what": "What do you want to convert to speech?",

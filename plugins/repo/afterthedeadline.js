@@ -5,16 +5,8 @@
 		
 		$lib = AtKit.lib();
 		
-		settings = {
-			"baseURL": "http://c.atbar.org/ATBar/"
-		};
-		
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-		}
-		
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"spell_title" : "Start AfterTheDeadline"
 		});
 
@@ -44,7 +36,7 @@
 				            document.getElementsByTagName('head')[0].appendChild(res);
 				        };
 				    if (typeof jQuery == 'undefined') {
-				        loadresource('SCRIPT', 'http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js', 'text/javascript', false);
+				        loadresource('SCRIPT', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js', 'text/javascript', false);
 				        setTimeout(function () {
 				            if (typeof jQuery != 'undefined') jQuery.noConflict();
 				            else setTimeout(this, 1000);

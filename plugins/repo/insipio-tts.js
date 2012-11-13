@@ -8,6 +8,7 @@
 		var settings = {
 			"baseURL": "http://c.atbar.org/ATBar/",
 			"serverURL": 'http://a.atbar.org/',
+			"speechServicesURL": 'http://speech.services.atbar.org/insipio-tts/',
 			"ttsChunkSize": 400
 		};
 
@@ -19,7 +20,7 @@
 		}
 
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"tts_title" : "Text to Speech",
 			"tts_options": "Text to Speech Options",
 			"tts_what": "What do you want to convert to speech?",

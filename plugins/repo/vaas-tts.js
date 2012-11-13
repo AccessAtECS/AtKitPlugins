@@ -10,12 +10,7 @@
 			"serverURL": 'http://a.atbar.org/',
 			"ttsChunkSize": 1500
 		}
-
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-			settings.serverURL = "https://ssl.atbar.org/a/";
-		}
-
+		
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
 			"tts_title" : "Text to Speech",

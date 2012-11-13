@@ -5,14 +5,6 @@
 		
 		$lib = AtKit.lib();
 		
-		settings = {
-			"baseURL": "http://c.atbar.org/ATBar/"
-		};
-		
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-		}
-		
 		// Internationalisation
 		AtKit.addLocalisationMap("GB", {
 			"translate_title" : "Start Google Translate"

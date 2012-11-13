@@ -14,7 +14,7 @@
 		}
 
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"dictionary_title" : "Dictionary",
 			"dictionary_definition": "Dictionary definition for",
 			"dictionary_use": "To use the dictionary select a word on the page and click the dictionary button"

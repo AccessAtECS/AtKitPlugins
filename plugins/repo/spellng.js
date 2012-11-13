@@ -30,7 +30,7 @@
 		
 		
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"spell_title" : "Start Spellchecker",
 			"spell_complete": "Spell checking complete!",
 			"spell_mistake": "Spelling Mistake",

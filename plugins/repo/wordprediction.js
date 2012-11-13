@@ -8,7 +8,7 @@
 		var wpTimeout;
 
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"wp_title" : "Word Prediction",
 			"wp_ignore": "Ignore",
 			"wp_instruct": "Keystrokes: esc to close, Ctrl + Alt + (1, 2, 3 etc)"
