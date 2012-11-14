@@ -6,18 +6,10 @@
 		$lib = AtKit.lib();
 
 		var settings = {
-			"baseURL": "http://c.atbar.org/ATBar/",
-			"serverURL": 'http://a.atbar.org/',
+			"baseURL": "http://core-dev.atbar.org/",
 			"speechServicesURL": 'http://speech.services.atbar.org/insipio-tts/',
 			"ttsChunkSize": 400
 		};
-
-		//if(AtKit.getLanguage() == "ar") settings.ttsChunkSize = 400;
-
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-			settings.serverURL = "https://ssl.atbar.org/a/";
-		}
 
 		// Internationalisation
 		AtKit.addLocalisationMap("en", {
@@ -250,7 +242,7 @@
 			
 			var payload = args.fullData.substring(start, endPoint);
 		
-			var urlString = settings.serverURL + 'xmlhttp/remote.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
+			var urlString = settings.speechServicesURL + 'xmlhttp/remote.php?rt=tts&v=2&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
 			if( args.block == args.totalBlocks-1 ){
 				urlString += "&page=" + encodeURIComponent(window.location);
 			}
@@ -297,7 +289,7 @@
 					var audioContainer = "audioo";
 					
 					if($lib.browser != "msie"){
-						$lib('body').append( $lib("<div id=\"flashContent\"><OBJECT classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" width=\"1\" height=\"1\" id=\"audioe\"> <PARAM name=movie value=\"" + settings.serverURL + "TTS/player/player-licensed.swf\"></PARAM> <PARAM name=flashvars value=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer + "\"><PARAM name=allowscriptaccess value=\"always\" /><embed type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" src=\"" + settings.serverURL + "TTS/player/player-licensed.swf\" width=\"1\" height=\"1\" allowscriptaccess=\"always\" allowfullscreen=\"false\" flashvars=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady\" name=\"audioe\" /> </OBJECT></div>") );
+						$lib('body').append( $lib("<div id=\"flashContent\"><OBJECT classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" width=\"1\" height=\"1\" id=\"audioe\"> <PARAM name=movie value=\"" + settings.speechServicesURL + "player/player-licensed.swf\"></PARAM> <PARAM name=flashvars value=\"file=" + settings.speechServicesURL + "cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer + "\"><PARAM name=allowscriptaccess value=\"always\" /><embed type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" src=\"" + settings.speechServicesURL + "player/player-licensed.swf\" width=\"1\" height=\"1\" allowscriptaccess=\"always\" allowfullscreen=\"false\" flashvars=\"file=" + settings.speechServicesURL + "cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady\" name=\"audioe\" /> </OBJECT></div>") );
 					
 						AtKit.call('setupTTSListeners');
 					} else {
@@ -306,7 +298,7 @@
 						
 
 						var params = {
-						  flashvars: "file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer,
+						  flashvars: "file=" + settings.speechServicesURL + "cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer,
 						  allowscriptaccess: "always"
 						};
 						var attributes = {
@@ -314,7 +306,7 @@
 						  name: audioContainer
 						};
 						
-						swfobject.embedSWF(settings.serverURL + "TTS/player/player-licensed.swf", "flashContent", "1", "1", "9.0.0","expressInstall.swf", false, params, attributes, function(){
+						swfobject.embedSWF(settings.speechServicesURL + "player/player-licensed.swf", "flashContent", "1", "1", "9.0.0","expressInstall.swf", false, params, attributes, function(){
 							AtKit.call('setupTTSListeners');
 						});
 					
@@ -427,7 +419,7 @@
 				AtKit.show(dialogs.options);
 				AtKit.set('TTS_Listeners_setup', false);
 
-				AtKit.addScript(settings.baseURL + '/swfobject.js', null);
+				AtKit.addScript(settings.baseURL + 'resources/js/swfobject.js', null);
 
 				$lib('#sbStartTTS').click(function(e){
 					// Get page contents.
