@@ -56,7 +56,7 @@
 				if(data != ""){
 					$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/loading.gif");
 					
-					$lib.getJSON( settings.serverURL + 'xmlhttp/remote.php?rt=dict&titles=' + encodeURI(data.toLowerCase()) + '&v=2&l=' + AtKit.getLanguage() + '&callback=?', function(data){
+					$lib.getJSON( settings.serverURL + 'xmlhttp/remote.php?titles=' + encodeURI(data.toLowerCase()) + '&v=2&l=' + AtKit.getLanguage() + '&callback=?', function(data){
 						ro = data;
 						for(var result in ro.query.pages){
 							if(result > -1){
