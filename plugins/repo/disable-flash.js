@@ -2,9 +2,7 @@
 
 	var pluginName = "disable-flash";
 	var plugin = function(){
-		
-		$lib = AtKit.lib();
-				
+			
 		// Internationalisation
 		AtKit.addLocalisationMap("en", {
 			"plugin_title" : "Disabled flash player on this page"

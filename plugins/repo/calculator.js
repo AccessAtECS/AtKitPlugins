@@ -3,8 +3,6 @@
 	var pluginName = "calculator";
 	var plugin = function(){
 		
-		$lib = AtKit.lib();
-		
 		// Internationalisation
 		AtKit.addLocalisationMap("en", {
 			"calculator_title" : "Start calculator"

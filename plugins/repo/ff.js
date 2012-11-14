@@ -3,11 +3,9 @@
 	var pluginName = "ff";
 	var plugin = function(){
 		
-		$lib = AtKit.lib();
-		
 		// Internationalisation
 		AtKit.addLocalisationMap("en", {
-			"ff_title" : "Start FontFriend"
+			"ff_title" : "Start Font Friend"
 		});
 		
 		// FontFriend
