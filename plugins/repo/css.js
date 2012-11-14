@@ -4,7 +4,7 @@
 	var plugin = function(){
 
 		var settings_css = {
-			'baseURL': 'http://core.atbar.org/';
+			'baseURL': 'http://core.atbar.org/'
 		};
 		
 		if(/https:/.test(window.location.protocol)){
