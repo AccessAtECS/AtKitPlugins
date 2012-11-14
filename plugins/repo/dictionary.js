@@ -6,13 +6,9 @@
 		$lib = AtKit.lib();
 		
 		var settings = {
-			'serverURL': 'http://a.atbar.org/'
+			'serverURL': 'http://spell.services.atbar.org/dictionary/'
 		};
-
-		if(/https:/.test(window.location.protocol)){
-			settings.serverURL = "https://ssl.atbar.org/a/";
-		}
-
+		
 		// Internationalisation
 		AtKit.addLocalisationMap("en", {
 			"dictionary_title" : "Dictionary",
