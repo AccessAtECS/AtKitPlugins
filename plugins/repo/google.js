@@ -2,9 +2,7 @@
 
 	var pluginName = "google";
 	var plugin = function(){
-		
-		$lib = AtKit.lib();
-				
+			
 		// Internationalisation
 		AtKit.addLocalisationMap("en", {
 			"google_title" : "Google search"

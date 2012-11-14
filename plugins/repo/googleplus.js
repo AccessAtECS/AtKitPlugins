@@ -3,8 +3,6 @@
 	var pluginName = "googleplus";
 	var plugin = function(){
 		
-		$lib = AtKit.lib();
-		
 		// Internationalisation
 		AtKit.addLocalisationMap("en", {
 			"googleplus_title" : "Share to Google Plus"
