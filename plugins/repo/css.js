@@ -4,13 +4,9 @@
 	var plugin = function(){
 
 		var settings_css = {
-			'baseURL': 'http://core.atbar.org/'
+			'baseURL': 'http://styles.services.atbar.org/css/'
 		};
 		
-		if(/https:/.test(window.location.protocol)){
-			settings_css.baseURL = "http://styles.services.atbar.org/css/";
-		}
-
 		$lib = AtKit.lib();
 
 		// Internationalisation
