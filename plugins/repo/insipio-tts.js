@@ -241,8 +241,8 @@
 			}
 			
 			var payload = args.fullData.substring(start, endPoint);
-		
-			var urlString = settings.speechServicesURL + 'xmlhttp/remote.php?rt=tts&v=2&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
+						
+			var urlString = settings.speechServicesURL + 'xmlhttp/remote.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
 			if( args.block == args.totalBlocks-1 ){
 				urlString += "&page=" + encodeURIComponent(window.location);
 			}
