@@ -36,7 +36,7 @@
 				            document.getElementsByTagName('head')[0].appendChild(res);
 				        };
 				    if (typeof jQuery == 'undefined') {
-				        loadresource('SCRIPT', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js', 'text/javascript', false);
+				        loadresource('SCRIPT', 'https://core.atbar.org/resources/jquery/1.8/jquery.min.js', 'text/javascript', false);
 				        setTimeout(function () {
 				            if (typeof jQuery != 'undefined') jQuery.noConflict();
 				            else setTimeout(this, 1000);

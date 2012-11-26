@@ -4,7 +4,7 @@
 	var plugin = function(){
 
 		var settings_css = {
-			'baseURL': 'http://styles.services.atbar.org/css/'
+			'baseURL': 'https://styles.services.atbar.org/css/'
 		};
 		
 		$lib = AtKit.lib();

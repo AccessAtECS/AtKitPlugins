@@ -6,7 +6,7 @@
 		$lib = AtKit.lib();
 		
 		var settings = {
-			'serverURL': 'http://spell.services.atbar.org/dictionary/'
+			'serverURL': 'https://spell.services.atbar.org/dictionary/'
 		};
 		
 		// Internationalisation

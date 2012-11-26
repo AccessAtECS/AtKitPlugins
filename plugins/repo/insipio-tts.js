@@ -6,8 +6,8 @@
 		$lib = AtKit.lib();
 
 		var settings = {
-			"baseURL": "http://core-dev.atbar.org/",
-			"speechServicesURL": 'http://speech.services.atbar.org/insipio-tts/',
+			"baseURL": "https://core.atbar.org/",
+			"speechServicesURL": 'https://speech.services.atbar.org/insipio-tts/',
 			"ttsChunkSize": 400
 		};
 
