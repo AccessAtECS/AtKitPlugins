@@ -12,20 +12,20 @@ $r = isset($_GET['r']) ? true : false;
 try {
 
 	$c = new compiler();
-
+	
 	$plugins = explode(",", $_GET['p']);
-
+	
 	sort($plugins);
-
+	
 	if(count($plugins) > 1){
-		$c->setOutput("combined/" . md5( implode(",", $plugins) ) );
+		$c->setOutput("combined/" . sha1(implode(",", $plugins)));
 	} else {
 		$c->setOutput($plugins[0]);
 	}
 
 	// Regenerate
 	if($r) unlink("dist/" . $c->outputFile());
-
+	
 	if( $c->outputExists() ){
 		$path =  $_SERVER["HTTP_HOST"] . rtrim(dirname($_SERVER['REQUEST_URI']), "/");
 
@@ -40,21 +40,22 @@ try {
 		header("Location: {$path}" );
 		exit;
 	}
-
+	
 	foreach($plugins as $plugin){
 		$c->addPlugin($plugin);
 	}
-
+	
 	$c->compile();
 
 	if($r){
 		echo "Plugin regenerated to " . $c->outputFile();
 		exit;
 	}
-
+	
 	echo $c->getOutput();
 
-} catch(Exception $e){
+}
+catch(Exception $e){
 	echo $e->getMessage();
 }
 

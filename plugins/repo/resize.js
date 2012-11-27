@@ -6,7 +6,7 @@
 		$lib = AtKit.lib();
 
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"resize_up" : "Increase Font Size",
 			"resize_down" : "Decrease Font Size"
 		});

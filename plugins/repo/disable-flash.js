@@ -2,19 +2,9 @@
 
 	var pluginName = "disable-flash";
 	var plugin = function(){
-		
-		$lib = AtKit.lib();
-		
-		settings = {
-			"baseURL": "http://c.atbar.org/ATBar/"
-		};
-		
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-		}
-		
+			
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"plugin_title" : "Disabled flash player on this page"
 		});
 		

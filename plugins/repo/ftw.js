@@ -4,11 +4,7 @@
 	var plugin = function(){
 
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
-			"ftw_title" : "Create a fix the web report about this page (opens in a popup window)"
-		});
-
-		AtKit.addLocalisationMap("ar", {
+		AtKit.addLocalisationMap("en", {
 			"ftw_title" : "Create a fix the web report about this page (opens in a popup window)"
 		});
 

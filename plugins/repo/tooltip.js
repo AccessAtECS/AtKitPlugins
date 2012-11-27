@@ -2,15 +2,7 @@
 
 	var pluginName = "tooltip";
 	var plugin = function(){
-
-		settings = {
-			"baseURL": "http://c.atbar.org/"
-		};
 		
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/";
-		}
-
 		var $lib = AtKit.lib();
 
 		 "use strict"

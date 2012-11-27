@@ -6,7 +6,7 @@
 		$lib = AtKit.lib();
 
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"fonts_dialogTitle" : "Page font settings",
 			"fonts_fontFace" : "Font Face",
 			"fonts_lineSpacing" : "Line Spacing",

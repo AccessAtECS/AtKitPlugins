@@ -1,0 +1,19 @@
+Options +FollowSymlinks
+
+RewriteEngine on
+
+#RewriteBase /
+
+SetEnvIf Request_Method GET SSL_REQUEST
+SetEnv SSL_REQUEST
+
+
+<IfDefine SSL_REQUEST>
+	RewriteBase /plugins
+</IfDefine>
+
+RewriteRule stats stats.php [L,NC,QSA]
+
+RewriteRule ^([\w-,]+).js$ get.php?p=$1 [L,NC,QSA]
+RewriteRule ^([\w-,]+).json$ getInformation.php?p=$1 [L,NC,QSA]
+RewriteRule ^([\w-,]+).regen$ get.php?p=$1&r=true [L,NC,QSA]
