@@ -242,7 +242,7 @@
 			
 			var payload = args.fullData.substring(start, endPoint);
 						
-			var urlString = settings.speechServicesURL + 'xmlhttp/remote.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
+			var urlString = settings.speechServicesURL + 'request.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
 			if( args.block == args.totalBlocks-1 ){
 				urlString += "&page=" + encodeURIComponent(window.location);
 			}
@@ -306,7 +306,7 @@
 						  name: audioContainer
 						};
 						
-						swfobject.embedSWF(settings.speechServicesURL + "player/player-licensed.swf", "flashContent", "1", "1", "9.0.0","expressInstall.swf", false, params, attributes, function(){
+						swfobject.embedSWF(settings.baseURL + "resources/player/player-licensed.swf", "flashContent", "1", "1", "9.0.0","expressInstall.swf", false, params, attributes, function(){
 							AtKit.call('setupTTSListeners');
 						});
 					
