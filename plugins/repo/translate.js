@@ -6,7 +6,7 @@
 		$lib = AtKit.lib();
 		
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"translate_title" : "Start Google Translate"
 		});
 		

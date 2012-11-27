@@ -93,7 +93,7 @@
 						var leadingText = elData.substring(0, pos).split(" ").slice(-6).join(" ");
 						var trailingText = elData.substring(pos).split(" ").slice(0, 2).join(" ");
 						
-						var predictURL = "http://predict.services.atbar.org/wordprediction/";
+						var predictURL = "https://predict.services.atbar.org/wordprediction/";
 
 						if(AtKit.getLanguage() == "ar") {
 							predictURL += "?lang=AR";
