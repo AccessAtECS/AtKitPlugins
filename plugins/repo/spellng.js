@@ -55,14 +55,9 @@
 
 
 		var spell_settings = {
-			"baseURL": "http://c.atbar.org/ATBar/",
+			"baseURL": "https://core.atbar.org/",
 			"completeDialog": complete
 		};
-		
-		if(/https:/.test(window.location.protocol)){
-			spell_settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-		}
-
 
 		AtKit.addFn('removeIncorrectWord', function(){
 			var selector = "#spellcheckmistakes";
@@ -80,7 +75,7 @@
 		
 		AtKit.addFn('recordSpellng', function(){
 	
-			var spellngRecordURL = "http://core.atbar.org/API/record-spellng.php?l=" + AtKit.getLanguage() + "&e=" + spellngIncorrect + "&c=" + spellngCorrection + "&i=" + spellngIgnore;
+			var spellngRecordURL = "https://spell.services.atbar.org/spellng/record-spellng.php?l=" + AtKit.getLanguage() + "&e=" + spellngIncorrect + "&c=" + spellngCorrection + "&i=" + spellngIgnore;
 			
 			$lib("#sbar").prepend('<img src="' + spellngRecordURL + '" />');
 			
@@ -163,7 +158,7 @@
 					this.text = input.replace(/<.*?>/ig, '');
 					var self = this, timeout;
 					
-					$lib.getJSON("http://core.a.atbar.org/API/spellng.php?l=" + this.options.lang + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
+					$lib.getJSON("https://spell.services.atbar.org/spellng/spellng.php?l=" + this.options.lang + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
 						self.parseResults( data );
 					});
 
@@ -176,7 +171,7 @@
 					this.text = this.$element.val();
 					var self = this, timeout;
 					
-					$lib.getJSON("http://core.a.atbar.org/API/spellng.php?l=" + this.options.lang + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
+					$lib.getJSON("https://spell.services.atbar.org/spellng/spellng.php?l=" + this.options.lang + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
 						self.parseResults( data );
 					});
 
@@ -338,7 +333,7 @@
 					}
 				}
 				
-				$lib('#at-lnk-spell').find('img').attr('src', spell_settings.baseURL + "images/spell.png");
+				$lib('#at-lnk-spell').find('img').attr('src', AtKit.getPluginURL() + "images/spell.png");
 					
 				
 			});
