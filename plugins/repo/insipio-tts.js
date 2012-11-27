@@ -7,7 +7,7 @@
 
 		var settings = {
 			"baseURL": "https://core.atbar.org/",
-			"speechServicesURL": 'https://speech.services.atbar.org/insipio-tts/',
+			"speechServicesURL": 'https://speech.services.atbar.org/',
 			"ttsChunkSize": 400
 		};
 
@@ -242,7 +242,7 @@
 			
 			var payload = args.fullData.substring(start, endPoint);
 						
-			var urlString = settings.speechServicesURL + 'request.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
+			var urlString = settings.speechServicesURL + 'insipio-tts/request.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
 			if( args.block == args.totalBlocks-1 ){
 				urlString += "&page=" + encodeURIComponent(window.location);
 			}
