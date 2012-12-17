@@ -22,8 +22,9 @@
 		
 		$lib = AtKit.lib();
 		
-		$lib.sb_spellVersion = '3.6';
+		$lib.sb_spellVersion = '3.7';
 		
+		var spellngSentance = null;
 		var spellngIncorrect = null;
 		var spellngCorrection = null;
 		var spellngIgnore = 0;
@@ -74,8 +75,8 @@
 		});
 		
 		AtKit.addFn('recordSpellng', function(){
-	
-			var spellngRecordURL = "https://spell.services.atbar.org/spellng/record-spellng.php?l=" + AtKit.getLanguage() + "&e=" + spellngIncorrect + "&c=" + spellngCorrection + "&i=" + spellngIgnore;
+			
+			var spellngRecordURL = "https://spell.services.atbar.org/spellng/record-spellng.php?l=" + AtKit.getLanguage() + "&e=" + spellngIncorrect + "&c=" + spellngCorrection + "&i=" + spellngIgnore + "&s=" + spellngSentance;
 			
 			$lib("#sbar").prepend('<img src="' + spellngRecordURL + '" />');
 			
@@ -153,7 +154,7 @@
 					this.origText = input;
 					this.rteptr = rteptr;
 					this.RTEType = type;
-					
+					spellngSentance = encodeURIComponent(this.text);
 					var prevText = input.replace(/<.*?>/ig, '');
 					this.text = input.replace(/<.*?>/ig, '');
 					var self = this, timeout;
@@ -170,6 +171,7 @@
 					if ( prevText === text ) return;
 					this.text = this.$element.val();
 					var self = this, timeout;
+					spellngSentance = encodeURIComponent(this.text);
 					
 					$lib.getJSON("https://spell.services.atbar.org/spellng/spellng.php?l=" + this.options.lang + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
 						self.parseResults( data );
