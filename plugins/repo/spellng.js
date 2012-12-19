@@ -22,7 +22,7 @@
 		
 		$lib = AtKit.lib();
 		
-		$lib.sb_spellVersion = '3.8';
+		$lib.sb_spellVersion = '3.9';
 		
 		var spellngSentance = null;
 		var spellngIncorrect = null;
@@ -84,7 +84,7 @@
 		});
 		
 		AtKit.addFn('recordSpell', function(){
-			var dlg = $lib('<div>', { "style": "" });
+			var dlg = $lib('<div>', { "style": "", "id": "AtKitSpellRecordDialog" });
 			dlg.append($lib('<p>', { "html": "" }));
 			dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_record") }));
 			dlg.append($lib('<div>', { "id": "AtKitSpellRecordContainer" }));
@@ -94,6 +94,7 @@
 			dlg.append($lib('<button>', { "html": AtKit.localisation("spell_record_disallow"), "id": "AtKitSpellRecordDisallow" }));
 			
 			AtKit.message(dlg);
+			$("#AtKitSpellRecordDialog").focus();
 			
 			$lib('#AtKitSpellRecordAllow').click(function(){
 				AtKit.call('recordSpellng');
@@ -235,7 +236,7 @@
 				displayResults: function() {
 					if ( !this.results.count ) return;
 
-					var dlg = $lib('<div>', { "style": "" });
+					var dlg = $lib('<div>', { "style": "", "id": "AtKitSpellDialog" });
 					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_mistake") }));
 					dlg.append($lib('<div>', { "id": "AtKitSpellMistakeContainer" }));
 					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_suggestions") }));
@@ -273,7 +274,8 @@
 
 
 					AtKit.message(dlg);
-
+					$("#AtKitSpellDialog").focus();
+					
 					// Add items to spellcheckmistakes.
 					$lib.each(this.results.words, function(i,v){
 						dlg.find('#spellcheckmistakes').append(
