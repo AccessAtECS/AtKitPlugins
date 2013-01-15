@@ -7,14 +7,14 @@
 			"yellow": "BABA70",
 			"red": "FF6699",
 			"blue": "3399CC",
-			"green": "00CC66",
+			"green": "00CC66"
 		}
 		
 		var overlaysToggle = {
 			"yellow": 0,
 			"red": 0,
 			"blue": 0,
-			"green": 0,
+			"green": 0
 		};
 		
 		// Internationalisation
