@@ -46,9 +46,7 @@
 		});
 		
 		AtKit.addFn('toggleOverlayYellow', function(){
-			if(overlaysToggle.yellow){
-				AtKit.call('removeOverlay', {});
-			}
+			if(overlaysToggle.yellow) AtKit.call('removeOverlay', {});
 			else{
 				AtKit.call('removeOverlay', {});
 				AtKit.call('addOverlay', { 'colour':overlays.yellow });
@@ -57,9 +55,7 @@
 		});
 		
 		AtKit.addFn('toggleOverlayRed', function(){
-			if(overlaysToggle.red){
-				AtKit.call('removeOverlay', {});
-			}
+			if(overlaysToggle.red) AtKit.call('removeOverlay', {});
 			else{
 				AtKit.call('removeOverlay', {});
 				AtKit.call('addOverlay', { 'colour':overlays.red });
@@ -68,9 +64,7 @@
 		});
 		
 		AtKit.addFn('toggleOverlayBlue', function(){
-			if(overlaysToggle.blue){
-				AtKit.call('removeOverlay', {});
-			}
+			if(overlaysToggle.blue)	AtKit.call('removeOverlay', {});
 			else{
 				AtKit.call('removeOverlay', {});
 				AtKit.call('addOverlay', { 'colour':overlays.blue });
@@ -79,9 +73,7 @@
 		});
 		
 		AtKit.addFn('toggleOverlayGreen', function(){
-			if(overlaysToggle.green){
-				AtKit.call('removeOverlay', {});
-			}
+			if(overlaysToggle.green) AtKit.call('removeOverlay', {});
 			else{
 				AtKit.call('removeOverlay', {});
 				AtKit.call('addOverlay', { 'colour':overlays.green });
