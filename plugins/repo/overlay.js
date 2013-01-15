@@ -7,16 +7,16 @@
 		AtKit.addLocalisationMap("en", {
 			"overlay_title" : "Colour overlay",
 			"overlay_title_yellow" : "yellow",
-			"overlay_title_yellow" : "red",
-			"overlay_title_yellow" : "blue",
-			"overlay_title_yellow" : "green"
+			"overlay_title_red" : "red",
+			"overlay_title_blue" : "blue",
+			"overlay_title_green" : "green"
 		});
 		AtKit.addLocalisationMap("ar", {
 			"overlay_title" : "Colour overlay",
 			"overlay_title_yellow" : "yellow",
-			"overlay_title_yellow" : "red",
-			"overlay_title_yellow" : "blue",
-			"overlay_title_yellow" : "green"
+			"overlay_title_red" : "red",
+			"overlay_title_blue" : "blue",
+			"overlay_title_green" : "green"
 		});
 		
 		AtKit.addFn('addOverlay', function(args){
@@ -34,7 +34,7 @@
 			function(dialogs, functions){
 				
 				AtKit.addButton('overlayYellow', 
-					AtKit.localisation("overlay_title")+AtKit.localisation("overlay_title_yellow"),
+					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_yellow"),
 					AtKit.getPluginURL() + 'images/overlay-yellow.png', 
 					function(dialogs, functions){
 						AtKit.call('removeOverlay', {});
@@ -42,7 +42,7 @@
 					});
 				
 				AtKit.addButton('overlayRed', 
-					AtKit.localisation("overlay_title")+AtKit.localisation("overlay_title_red"),
+					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_red"),
 					AtKit.getPluginURL() + 'images/overlay-red.png', 
 					function(dialogs, functions){
 						AtKit.call('removeOverlay', {});
@@ -50,7 +50,7 @@
 					});
 				
 				AtKit.addButton('overlayBlue', 
-					AtKit.localisation("overlay_title")+AtKit.localisation("overlay_title_blue"),
+					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_blue"),
 					AtKit.getPluginURL() + 'images/overlay-blue.png', 
 					function(dialogs, functions){
 						AtKit.call('removeOverlay', {});
@@ -58,7 +58,7 @@
 					});
 						
 				AtKit.addButton('overlayGreen', 
-					AtKit.localisation("overlay_title")+AtKit.localisation("overlay_title_green"),
+					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_green"),
 					AtKit.getPluginURL() + 'images/overlay-green.png', 
 					function(dialogs, functions){
 						AtKit.call('removeOverlay', {});
