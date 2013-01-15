@@ -5,17 +5,68 @@
 			
 		// Internationalisation
 		AtKit.addLocalisationMap("en", {
-			"overlay_title" : "Colour overlay"
+			"overlay_title" : "Colour overlay",
+			"overlay_title_yellow" : "yellow",
+			"overlay_title_yellow" : "red",
+			"overlay_title_yellow" : "blue",
+			"overlay_title_yellow" : "green"
 		});
-				
+		AtKit.addLocalisationMap("ar", {
+			"overlay_title" : "Colour overlay",
+			"overlay_title_yellow" : "yellow",
+			"overlay_title_yellow" : "red",
+			"overlay_title_yellow" : "blue",
+			"overlay_title_yellow" : "green"
+		});
+		
+		AtKit.addFn('addOverlay', function(args){
+			$('body').prepend('<div class="overlay" style="background-color:#' + args.colour + '; opacity:0.4; position:absolute; top:0; left:0; height:100%; width:100%; z-index:10000; opacity:0.3; pointer-events: none;"></div>');
+		});
+		
+		AtKit.addFn('removeOverlay', function(){
+			$('.overlay').remove();
+		});
+		
 		AtKit.addButton(
-			'overlay_yellow', 
+			'overlay', 
 			AtKit.localisation("overlay_title"),
-			AtKit.getPluginURL() + 'images/palette.png',
+			AtKit.getPluginURL() + 'images/overlay.png',
 			function(dialogs, functions){
 				
-				$('body').prepend('<div class="overlay" style="background-color:#BABA70; opacity:0.4; position:absolute; top:0; left:0; height:100%; width:100%; z-index:10000; opacity:0.4; pointer-events: none;"></div>');
-			
+				AtKit.addButton('overlayYellow', 
+					AtKit.localisation("overlay_title")+AtKit.localisation("overlay_title_yellow"),
+					AtKit.getPluginURL() + 'images/overlay-yellow.png', 
+					function(dialogs, functions){
+						AtKit.call('removeOverlay', {});
+						AtKit.call('addOverlay', { 'colour':'BABA70' });
+					});
+				
+				AtKit.addButton('overlayRed', 
+					AtKit.localisation("overlay_title")+AtKit.localisation("overlay_title_red"),
+					AtKit.getPluginURL() + 'images/overlay-red.png', 
+					function(dialogs, functions){
+						AtKit.call('removeOverlay', {});
+						AtKit.call('addOverlay', { 'colour':'FF6699' });
+					});
+				
+				AtKit.addButton('overlayBlue', 
+					AtKit.localisation("overlay_title")+AtKit.localisation("overlay_title_blue"),
+					AtKit.getPluginURL() + 'images/overlay-blue.png', 
+					function(dialogs, functions){
+						AtKit.call('removeOverlay', {});
+						AtKit.call('addOverlay', { 'colour':'3399CC' });
+					});
+						
+				AtKit.addButton('overlayGreen', 
+					AtKit.localisation("overlay_title")+AtKit.localisation("overlay_title_green"),
+					AtKit.getPluginURL() + 'images/overlay-green.png', 
+					function(dialogs, functions){
+						AtKit.call('removeOverlay', {});
+						AtKit.call('addOverlay', { 'colour':'00CC66' });
+					});
+				
+				AtKit.removeButton("overlay");
+				
 			},
 			null, null
 		);
@@ -35,6 +86,7 @@
 					eventAction(sender, eventArgs);
 				}
 			};
+			
 		}
 
 		window['AtKitLoaded'] = new AtKitLoaded();
