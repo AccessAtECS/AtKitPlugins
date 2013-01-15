@@ -2,7 +2,21 @@
 
 	var pluginName = "overlay";
 	var plugin = function(){
-			
+		
+		var overlays = {
+			"yellow": "BABA70",
+			"red": "FF6699",
+			"blue": "3399CC",
+			"green": "00CC66",
+		}
+		
+		var overlaysToggle = {
+			"yellow": 0,
+			"red": 0,
+			"blue": 0,
+			"green": 0,
+		};
+		
 		// Internationalisation
 		AtKit.addLocalisationMap("en", {
 			"overlay_title" : "Colour overlay",
@@ -25,8 +39,56 @@
 		
 		AtKit.addFn('removeOverlay', function(){
 			$('.overlay').remove();
+			overlaysToggle.yellow = 0;
+			overlaysToggle.red = 0;
+			overlaysToggle.blue = 0;
+			overlaysToggle.green = 0;
 		});
 		
+		AtKit.addFn('toogleOverlayYellow', function(args){
+			if(overlaysToggle.yellow){
+				AtKit.call('removeOverlay', {});
+			}
+			else{
+				AtKit.call('removeOverlay', {});
+				AtKit.call('addOverlay', { 'colour':overlays.yellow });
+				overlaysToggle.yellow = 1;
+			}
+		});
+		
+		AtKit.addFn('toogleOverlayRed', function(args){
+			if(overlaysToggle.red){
+				AtKit.call('removeOverlay', {});
+			}
+			else{
+				AtKit.call('removeOverlay', {});
+				AtKit.call('addOverlay', { 'colour':overlays.red });
+				overlaysToggle.red = 1;
+			}
+		});
+		
+		AtKit.addFn('toogleOverlayBlue', function(args){
+			if(overlaysToggle.blue){
+				AtKit.call('removeOverlay', {});
+			}
+			else{
+				AtKit.call('removeOverlay', {});
+				AtKit.call('addOverlay', { 'colour':overlays.blue });
+				overlaysToggle.blue = 1;
+			}
+		});
+		
+		AtKit.addFn('toogleOverlayGreen', function(args){
+			if(overlaysToggle.green){
+				AtKit.call('removeOverlay', {});
+			}
+			else{
+				AtKit.call('removeOverlay', {});
+				AtKit.call('addOverlay', { 'colour':overlays.green });
+				overlaysToggle.green = 1;
+			}
+		});
+				
 		AtKit.addButton(
 			'overlay', 
 			AtKit.localisation("overlay_title"),
@@ -37,36 +99,31 @@
 					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_yellow"),
 					AtKit.getPluginURL() + 'images/overlay-yellow.png', 
 					function(dialogs, functions){
-						AtKit.call('removeOverlay', {});
-						AtKit.call('addOverlay', { 'colour':'BABA70' });
+						AtKit.call('toogleOverlayYellow', {});
 					});
 				
 				AtKit.addButton('overlayRed', 
 					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_red"),
 					AtKit.getPluginURL() + 'images/overlay-red.png', 
 					function(dialogs, functions){
-						AtKit.call('removeOverlay', {});
-						AtKit.call('addOverlay', { 'colour':'FF6699' });
+						AtKit.call('toogleOverlayRed', {});
 					});
 				
 				AtKit.addButton('overlayBlue', 
 					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_blue"),
 					AtKit.getPluginURL() + 'images/overlay-blue.png', 
 					function(dialogs, functions){
-						AtKit.call('removeOverlay', {});
-						AtKit.call('addOverlay', { 'colour':'3399CC' });
+						AtKit.call('toogleOverlayBlue', {});
 					});
 						
 				AtKit.addButton('overlayGreen', 
 					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_green"),
 					AtKit.getPluginURL() + 'images/overlay-green.png', 
 					function(dialogs, functions){
-						AtKit.call('removeOverlay', {});
-						AtKit.call('addOverlay', { 'colour':'00CC66' });
+						AtKit.call('toogleOverlayGreen', {});
 					});
 				
-				AtKit.removeButton("overlay");
-				
+				AtKit.removeButton("overlay");				
 			},
 			null, null
 		);
