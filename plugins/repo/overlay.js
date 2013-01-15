@@ -45,10 +45,8 @@
 			overlaysToggle.green = 0;
 		});
 		
-		AtKit.addFn('toogleOverlayYellow', function(args){
-			if(overlaysToggle.yellow){
-				AtKit.call('removeOverlay', {});
-			}
+		AtKit.addFn('toggleOverlayYellow', function(){
+			if(overlaysToggle.yellow) AtKit.call('removeOverlay', {});
 			else{
 				AtKit.call('removeOverlay', {});
 				AtKit.call('addOverlay', { 'colour':overlays.yellow });
@@ -56,10 +54,8 @@
 			}
 		});
 		
-		AtKit.addFn('toogleOverlayRed', function(args){
-			if(overlaysToggle.red){
-				AtKit.call('removeOverlay', {});
-			}
+		AtKit.addFn('toggleOverlayRed', function(){
+			if(overlaysToggle.red) AtKit.call('removeOverlay', {});
 			else{
 				AtKit.call('removeOverlay', {});
 				AtKit.call('addOverlay', { 'colour':overlays.red });
@@ -67,10 +63,8 @@
 			}
 		});
 		
-		AtKit.addFn('toogleOverlayBlue', function(args){
-			if(overlaysToggle.blue){
-				AtKit.call('removeOverlay', {});
-			}
+		AtKit.addFn('toggleOverlayBlue', function(){
+			if(overlaysToggle.blue)	AtKit.call('removeOverlay', {});
 			else{
 				AtKit.call('removeOverlay', {});
 				AtKit.call('addOverlay', { 'colour':overlays.blue });
@@ -78,10 +72,8 @@
 			}
 		});
 		
-		AtKit.addFn('toogleOverlayGreen', function(args){
-			if(overlaysToggle.green){
-				AtKit.call('removeOverlay', {});
-			}
+		AtKit.addFn('toggleOverlayGreen', function(){
+			if(overlaysToggle.green) AtKit.call('removeOverlay', {});
 			else{
 				AtKit.call('removeOverlay', {});
 				AtKit.call('addOverlay', { 'colour':overlays.green });
@@ -99,28 +91,28 @@
 					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_yellow"),
 					AtKit.getPluginURL() + 'images/overlay-yellow.png', 
 					function(dialogs, functions){
-						AtKit.call('toogleOverlayYellow', {});
+						AtKit.call('toggleOverlayYellow', {});
 					});
 				
 				AtKit.addButton('overlayRed', 
 					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_red"),
 					AtKit.getPluginURL() + 'images/overlay-red.png', 
 					function(dialogs, functions){
-						AtKit.call('toogleOverlayRed', {});
+						AtKit.call('toggleOverlayRed', {});
 					});
 				
 				AtKit.addButton('overlayBlue', 
 					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_blue"),
 					AtKit.getPluginURL() + 'images/overlay-blue.png', 
 					function(dialogs, functions){
-						AtKit.call('toogleOverlayBlue', {});
+						AtKit.call('toggleOverlayBlue', {});
 					});
 						
 				AtKit.addButton('overlayGreen', 
 					AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_green"),
 					AtKit.getPluginURL() + 'images/overlay-green.png', 
 					function(dialogs, functions){
-						AtKit.call('toogleOverlayGreen', {});
+						AtKit.call('toggleOverlayGreen', {});
 					});
 				
 				AtKit.removeButton("overlay");				
