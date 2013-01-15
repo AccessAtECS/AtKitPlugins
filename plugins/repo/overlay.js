@@ -7,16 +7,16 @@
 		AtKit.addLocalisationMap("en", {
 			"overlay_title" : "Colour overlay",
 			"overlay_title_yellow" : "yellow",
-			"overlay_title_yellow" : "red",
-			"overlay_title_yellow" : "blue",
-			"overlay_title_yellow" : "green"
+			"overlay_title_red" : "red",
+			"overlay_title_blue" : "blue",
+			"overlay_title_green" : "green"
 		});
 		AtKit.addLocalisationMap("ar", {
 			"overlay_title" : "Colour overlay",
 			"overlay_title_yellow" : "yellow",
-			"overlay_title_yellow" : "red",
-			"overlay_title_yellow" : "blue",
-			"overlay_title_yellow" : "green"
+			"overlay_title_red" : "red",
+			"overlay_title_blue" : "blue",
+			"overlay_title_green" : "green"
 		});
 		
 		AtKit.addFn('addOverlay', function(args){
