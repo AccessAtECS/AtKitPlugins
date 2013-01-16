@@ -118,7 +118,7 @@
 					AtKit.getPluginURL() + 'images/overlay-green.png', 
 					function(dialogs, functions){
 						AtKit.call('toggleOverlayGreen', {});
-					});								
+					});
 			},
 			null, null
 		);
