@@ -36,7 +36,7 @@
 		});
 		
 		AtKit.addFn('addOverlay', function(args){
-			$lib('body').prepend('<div class="overlay" style="background-color:#' + args.colour + '; opacity:0.4; position:absolute; top:0; left:0; height:100%; width:100%; z-index:2147483640; opacity:0.3; pointer-events: none;"></div>');
+			$lib('body').prepend('<div class="overlay" style="background-color:#' + args.colour + '; opacity:0.4; position:absolute; top:0; left:0; height:100%; width:100%; z-index:2147483640; opacity:0.3; pointer-events: none; position:fixed"></div>');
 		});
 		
 		AtKit.addFn('removeOverlay', function(){
