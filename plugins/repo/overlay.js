@@ -91,9 +91,9 @@
 			AtKit.getPluginURL() + 'images/overlay.png',
 			function(dialogs, functions){
 				
+				AtKit.call('removeOverlay', {});
 				if(!overlayRunning){
 					overlayRunning = 1;
-					AtKit.addSeparator();
 					
 					AtKit.addButton('overlayYellow', 
 						AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_yellow"),
@@ -123,6 +123,14 @@
 							AtKit.call('toggleOverlayGreen', {});
 						});
 				}
+				else{
+					overlayRunning = 0;
+					AtKit.removeButton('overlayYellow');
+					AtKit.removeButton('overlayRed');
+					AtKit.removeButton('overlayBlue');
+					AtKit.removeButton('overlayGreen');
+				}
+				
 			},
 			null, null
 		);
