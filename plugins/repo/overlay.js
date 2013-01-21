@@ -30,11 +30,11 @@
 			"overlay_title_green" : "green"
 		});
 		AtKit.addLocalisationMap("ar", {
-			"overlay_title" : "Colour overlay",
-			"overlay_title_yellow" : "yellow",
-			"overlay_title_red" : "red",
-			"overlay_title_blue" : "blue",
-			"overlay_title_green" : "green"
+			"overlay_title" : "&#1604;&#1608;&#1606;&#160;&#1575;&#1604;&#1588;&#1575;&#1588;&#1577;",
+			"overlay_title_yellow" : "&#1571;&#1589;&#1601;&#1585;",
+			"overlay_title_red" : "&#1571;&#1581;&#1605;&#1585;",
+			"overlay_title_blue" : "&#1571;&#1586;&#1585;&#1602;",
+			"overlay_title_green" : "&#1571;&#1582;&#1590;&#1585;"
 		});
 		
 		AtKit.addFn('addOverlay', function(args){
