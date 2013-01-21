@@ -64,7 +64,7 @@
 			}
 		};
 		var TTSFunctions = {};
-		var TTSExtendedObject = {
+		/*var TTSExtendedObject = {
 			clickEnabled: true,
 			positition: "",
 			playingItem: "",
@@ -101,7 +101,7 @@
 					}
 				}
 			}
-		};
+		};*/
 		
 
 		// Add functions to AtKit.
@@ -327,11 +327,12 @@
 			window.playerReady = function(obj) {
 				
 				AtKit.set('ATAudioPlayerID', obj.id);
-
+				
+				/*
 				for(b in TTSExtendedObject.TTSButtons){
 					var obj = TTSExtendedObject.TTSButtons[b];
 					AtKit.addButton(b, obj.tooltip, obj.icon, obj.fn);
-				}
+				}*/
 				
 				// Set values.
 				AtKit.set("TTS_position", 0);
@@ -462,7 +463,7 @@
 					AtKit.call('sbStartTTSSelection', { 'voice':'female' });
 				});			
 			},
-			TTSDialogs, TTSFunctions, TTSExtendedObject
+			TTSDialogs, TTSFunctions//, TTSExtendedObject
 		);
 
 	};
