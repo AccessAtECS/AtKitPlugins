@@ -27,26 +27,37 @@
 			"overlay_title_yellow" : "yellow",
 			"overlay_title_red" : "red",
 			"overlay_title_blue" : "blue",
-			"overlay_title_green" : "green"
+			"overlay_title_green" : "green",
+			"overlay_remove" : "Remove overlay"
 		});
 		AtKit.addLocalisationMap("ar", {
 			"overlay_title" : "&#1604;&#1608;&#1606;&#160;&#1575;&#1604;&#1588;&#1575;&#1588;&#1577;",
 			"overlay_title_yellow" : "&#1571;&#1589;&#1601;&#1585;",
 			"overlay_title_red" : "&#1571;&#1581;&#1605;&#1585;",
 			"overlay_title_blue" : "&#1571;&#1586;&#1585;&#1602;",
-			"overlay_title_green" : "&#1571;&#1582;&#1590;&#1585;"
+			"overlay_title_green" : "&#1571;&#1582;&#1590;&#1585;",
+			"overlay_remove" : "Remove overlay"
 		});
 		
 		AtKit.addFn('addOverlay', function(args){
-			$lib('body').prepend('<div class="overlay" style="background-color:#' + args.colour + '; opacity:0.4; position:absolute; top:0; left:0; height:100%; width:100%; z-index:2147483640; opacity:0.3; filter: alpha(opacity = 30); pointer-events: none; position:fixed"></div>');
+			var overlay = '<div class="at-overlay" style="background-color:#' + args.colour + '; opacity:0.4; position:absolute; top:0; left:0; height:100%; width:100%; z-index:2147483640; opacity:0.3; filter: alpha(opacity = 30); pointer-events: none; position:fixed"></div>';
+			$lib('body').prepend(overlay);
+			AtKit.call('addOvelayClose', {});
 		});
 		
 		AtKit.addFn('removeOverlay', function(){
-			$lib('.overlay').remove();
+			$lib('.at-overlay').remove();
+			$lib('.at-overlay-close').remove();
 			overlaysToggle.yellow = 0;
 			overlaysToggle.red = 0;
 			overlaysToggle.blue = 0;
 			overlaysToggle.green = 0;
+		});
+		
+		AtKit.addFn('addOvelayClose', function(){
+			var direction = (AtKit.getLanguage() == 'ar') ? 'right' : 'left';
+			var overlayClose = '<div class="at-overlay-close" style="position:absolute; ' + direction + ':96%; top:48px; z-index:9999999999; position:fixed""><a href="#" onclick="AtKit.call(\'removeOverlay\', {});"><img src="' + AtKit.getResourceURL() + '/resources/img/facebox-close.png" alt="' + AtKit.localisation("overlay_remove") + '" title="' + AtKit.localisation("overlay_remove") + '"/></a></div>';
+			$lib('body').prepend(overlayClose);	
 		});
 		
 		AtKit.addFn('toggleOverlayYellow', function(){
@@ -84,7 +95,7 @@
 				overlaysToggle.green = 1;
 			}
 		});
-				
+						
 		AtKit.addButton(
 			'overlay', 
 			AtKit.localisation("overlay_title"),
