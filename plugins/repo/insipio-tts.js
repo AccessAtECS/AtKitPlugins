@@ -64,20 +64,44 @@
 			}
 		};
 		var TTSFunctions = {};
-		var TTSExtendedObject = {
+		/*var TTSExtendedObject = {
 			clickEnabled: true,
 			positition: "",
 			playingItem: "",
 			"TTSButtons": {
+				'ttsPlay': {
+					'tooltip': AtKit.localisation("tts_playpause"),
+					'icon': AtKit.getPluginURL() + "images/control-pause.png",
+					'fn': function(){
+						var targetObj = ($lib.browser == "msie") ? swfobject.getObjectById(AtKit.get('ATAudioPlayerID')) : window.document['audioe'];
+						targetObj.sendEvent('play');
+					}
+				},
+				'ttsRewind': {
+					'tooltip': AtKit.localisation("tts_rewind"),
+					'icon': AtKit.getPluginURL() + "images/control-stop-180.png",
+					'fn': function(){
+						var scrubAmount = 2;
+						var currentPosition = AtKit.get("TTS_position");
+						var newPosition = (currentPosition - scrubAmount);
+						if(newPosition < 0) newPosition = 0;
+
+						var targetObj = ($lib.browser == "msie") ? swfobject.getObjectById(AtKit.get('ATAudioPlayerID')) : window.document['audioe'];
+						targetObj.sendEvent('seek', newPosition);
+					}
+				},
 				'ttsStop': {
 					'tooltip': AtKit.localisation("tts_stop"),
 					'icon': AtKit.getPluginURL() + "images/control-stop-square.png",
 					'fn': function(){
+						var targetObj = ($lib.browser == "msie") ? swfobject.getObjectById(AtKit.get('ATAudioPlayerID')) : window.document['audioe'];
+						targetObj.sendEvent('stop');
+
 						AtKit.call('TTSRemoveControlBox');
 					}
 				}
 			}
-		};
+		};*/
 		
 
 		// Add functions to AtKit.
@@ -304,10 +328,11 @@
 				
 				AtKit.set('ATAudioPlayerID', obj.id);
 				
+				/*
 				for(b in TTSExtendedObject.TTSButtons){
 					var obj = TTSExtendedObject.TTSButtons[b];
 					AtKit.addButton(b, obj.tooltip, obj.icon, obj.fn);
-				}
+				}*/
 				
 				// Set values.
 				AtKit.set("TTS_position", 0);
@@ -363,6 +388,8 @@
 		});
 		
 		AtKit.addFn('TTSRemoveControlBox', function(){
+			AtKit.removeButton('ttsPlay');
+			AtKit.removeButton('ttsRewind');
 			AtKit.removeButton('ttsStop');
 
 	      	$lib("#flashContent").remove();
