@@ -18,7 +18,7 @@
 
 		AtKit.addFn('resizeText', function(multiplier){
 			// Every HTML tag
-			var tags = AtKit;getHtmlTags();
+			var tags = AtKit.getHtmlTags();
 			
 			for(var i = 0; i < tags.length; i++){
 				var current = parseFloat($lib(tags[i]).css('font-size'));
