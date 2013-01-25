@@ -74,7 +74,7 @@
 			"css_white_grey":"&#1571;&#1576;&#1610;&#1590; &#1593;&#1604;&#1609; &#1582;&#1604;&#1601;&#1610;&#1577; &#1585;&#1605;&#1575;&#1583;&#1610;&#1577;"
 		});
 
-		var colourOptions = "<option value=\"original\">--" + AtKit.localisation("css_colour_original") + "--</option><option value=\"B80028\">" + AtKit.localisation("css_colour_red") + "</option><option value=\"194E84\">" + AtKit.localisation("css_colour_blue") + "</option><option value=\"60BB22\">" + AtKit.localisation("css_colour_green") + "</option><option value=\"FDB813\">" + AtKit.localisation("css_colour_yellow") + "</option><option value=\"F17022\">" + AtKit.localisation("css_colour_orange") + "</option><option value=\"000000\">" + AtKit.localisation("css_black") + "</option><option value=\"A8B1B8\">" + AtKit.localisation("css_grey") + "</option><option value=\"FFFFFF\">" + AtKit.localisation("css_white") + "</option>";
+		var colourOptions = '<option value="original">--' + AtKit.localisation('css_colour_original') + '--</option><option value="B80028">' + AtKit.localisation('css_colour_red') + '</option><option value="194E84">' + AtKit.localisation('css_colour_blue') + '</option><option value="60BB22">' + AtKit.localisation('css_colour_green') + '</option><option value="FDB813">' + AtKit.localisation('css_colour_yellow') + '</option><option value="F17022">' + AtKit.localisation('css_colour_orange') + '</option><option value="000000">' + AtKit.localisation('css_black') + '</option><option value="A8B1B8">' + AtKit.localisation('css_grey') + '</option><option value="FFFFFF">' + AtKit.localisation('css_white') + "</option>";
 
 		// CSS button
 		var CSSDialogs = {
