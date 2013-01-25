@@ -18,12 +18,12 @@
 			"fonts_fontFace" : "&#1606;&#1608;&#1593; &#1575;&#1604;&#1582;&#1591;",
 			"fonts_lineSpacing": "&#1575;&#1604;&#1605;&#1587;&#1575;&#1601;&#1575;&#1578; &#1576;&#1610;&#1606; &#1575;&#1604;&#1571;&#1587;&#1591;&#1585;",
 			"fonts_apply": "&#1578;&#1591;&#1576;&#1610;&#1602;"
-		});		
+		});
 
 
 		// Font settings
 		var fontDialogs = {
-				"main": "<h1>" + AtKit.localisation("fonts_dialogTitle") + "</h1><label for=\"sbfontface\">" + AtKit.localisation("fonts_fontFace") + ":</label> <select id=\"sbfontface\"><option value=\"sitespecific\">--Site Specific--</option><option value=\"arial\">Arial</option><option value=\"courier\">Courier</option><option value=\"cursive\">Cursive</option><option value=\"fantasy\">Fantasy</option><option value=\"georgia\">Georgia</option><option value=\"helvetica\">Helvetica</option><option value=\"impact\">Impact</option><option value=\"monaco\">Monaco</option><option value=\"monospace\">Monospace</option><option value=\"sans-serif\">Sans-Serif</option><option value=\"tahoma\">Tahoma</option><option value=\"times new roman\">Times New Roman</option><option value=\"trebuchet ms\">Trebuchet MS</option><option value=\"verdant\">Verdana</option></select><br /><br /> <label for=\"sblinespacing\">" + AtKit.localisation("fonts_lineSpacing") + "</label> <input type=\"text\" name=\"sblinespacing\" id=\"sblinespacing\" maxlength=\"3\" size=\"3\" value=\"100\">%<br /><br /><button id='ATApplyFont'>" + AtKit.localisation("fonts_apply") + "</a></div>"
+				'main': '<h1>' + AtKit.localisation('fonts_dialogTitle') + '</h1><label for="sbfontface">' + AtKit.localisation('fonts_fontFace') + ':</label> <select id="sbfontface"><option value="sitespecific">--Site Specific--</option><option value="arial">Arial</option><option value="courier">Courier</option><option value="cursive">Cursive</option><option value="fantasy">Fantasy</option><option value="georgia">Georgia</option><option value="helvetica">Helvetica</option><option value="impact">Impact</option><option value="monaco">Monaco</option><option value="monospace">Monospace</option><option value="sans-serif">Sans-Serif</option><option value="tahoma">Tahoma</option><option value="times new roman">Times New Roman</option><option value="trebuchet ms">Trebuchet MS</option><option value="verdant">Verdana</option></select><br /><br /> <label for="sblinespacing">' + AtKit.localisation('fonts_lineSpacing') + '</label> <input type="text" name="sblinespacing" id="sblinespacing" maxlength="3" size="3" value="100">%<br /><br /><button id="ATApplyFont">' + AtKit.localisation('fonts_apply') + '</a></div>'
 		};
 		
 		AtKit.addFn('changeFont', function(args){
@@ -34,7 +34,7 @@
 			
 			AtKit.storage('pageFont', args.fontFace);
 			AtKit.storage('pageLineHeight', args.lineHeight);
-		});
+		})
 		
 		AtKit.addButton(
 			'fontSettings', 
