@@ -27,13 +27,23 @@
 		};
 		
 		AtKit.addFn('changeFont', function(args){
-			if(args.fontFace != "--Site Specific--") $lib('body').css('font-family', args.fontFace);
+			// Get all HTML tags from AtKit
+			var tags = AtKit.getHtmlTags();
 			
-			$lib('div[id!="sbar"], span, p').css('line-height', args.lineHeight + "%");
-			$lib('#sbar').find('div').css('line-height', '0%');
+			if(args.fontFace != "--Site Specific--"){
+				// Change font family
+				for(var i = 0; i < tags.length; i++){
+					$lib(tags[i]).css('font-family', args.fontFace);
+				}
+				// Change line height
+				for(var k = 0; k < tags.length; k++){
+					$lib(tags[k]).css('line-height', args.lineHeight + '%');
+				}
+				
+				// Set ATbar line height back to 0%
+				$lib('#sbar').find('div').css('line-height', '0%');
+			}
 			
-			AtKit.storage('pageFont', args.fontFace);
-			AtKit.storage('pageLineHeight', args.lineHeight);
 		})
 		
 		AtKit.addButton(
@@ -42,9 +52,6 @@
 			AtKit.getPluginURL() + 'images/font.png',
 			function(dialogs, functions){
 				AtKit.message(dialogs.main);
-				
-				var storedFont = AtKit.storage('pageFont');
-				if(storedFont != false) $lib('#sbfontface').children('option[value="' + storedFont + '"]').attr('selected', 'selected');
 				
 				$lib('#ATApplyFont').click(function(){
 					AtKit.call('changeFont', { 
