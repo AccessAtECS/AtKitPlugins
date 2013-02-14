@@ -94,7 +94,7 @@
 			dlg.append($lib('<button>', { "html": AtKit.localisation("spell_record_disallow"), "id": "AtKitSpellRecordDisallow" }));
 			
 			AtKit.message(dlg);
-			$("#AtKitSpellRecordDialog").focus();
+			$lib("#AtKitSpellRecordDialog").focus();
 			
 			$lib('#AtKitSpellRecordAllow').click(function(){
 				AtKit.call('recordSpellng');
@@ -274,7 +274,7 @@
 
 
 					AtKit.message(dlg);
-					$("#AtKitSpellDialog").focus();
+					$lib("#AtKitSpellDialog").focus();
 					
 					// Add items to spellcheckmistakes.
 					$lib.each(this.results.words, function(i,v){
