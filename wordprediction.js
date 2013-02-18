@@ -8,7 +8,7 @@
 		var wpTimeout;
 
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"wp_title" : "Word Prediction",
 			"wp_ignore": "Ignore",
 			"wp_instruct": "Keystrokes: esc to close, Ctrl + Alt + (1, 2, 3 etc)"
@@ -93,19 +93,17 @@
 						var leadingText = elData.substring(0, pos).split(" ").slice(-6).join(" ");
 						var trailingText = elData.substring(pos).split(" ").slice(0, 2).join(" ");
 						
-						//var URL = "http://a.atbar.org/prediction/?l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
-						var newURL = "http://predict.atbar.org/";
+						var predictURL = "https://predict.services.atbar.org/wordprediction/";
 
 						if(AtKit.getLanguage() == "ar") {
-							newURL += "AR/";
+							predictURL += "?lang=AR";
 						} else {
-							newURL += "EN/";
+							predictURL += "?lang=EN";
 						}
 
-						newURL += "predict?l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
-						URL = newURL;
+						predictURL += "&l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
 						
-						$lib.getJSON(URL, function(response){
+						$lib.getJSON(predictURL, function(response){
 							var data = response.payload.split(";");
 							
 							var input = data.splice(0, 2);

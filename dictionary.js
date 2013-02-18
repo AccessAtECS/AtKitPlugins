@@ -6,15 +6,11 @@
 		$lib = AtKit.lib();
 		
 		var settings = {
-			'serverURL': 'http://a.atbar.org/'
+			'serverURL': 'https://spell.services.atbar.org/dictionary/'
 		};
-
-		if(/https:/.test(window.location.protocol)){
-			settings.serverURL = "https://ssl.atbar.org/a/";
-		}
-
+		
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"dictionary_title" : "Dictionary",
 			"dictionary_definition": "Dictionary definition for",
 			"dictionary_use": "To use the dictionary select a word on the page and click the dictionary button"
@@ -60,7 +56,7 @@
 				if(data != ""){
 					$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/loading.gif");
 					
-					$lib.getJSON( settings.serverURL + 'xmlhttp/remote.php?rt=dict&titles=' + encodeURI(data.toLowerCase()) + '&v=2&l=' + AtKit.getLanguage() + '&callback=?', function(data){
+					$lib.getJSON( settings.serverURL + 'xmlhttp/remote.php?titles=' + encodeURI(data.toLowerCase()) + '&v=2&l=' + AtKit.getLanguage() + '&callback=?', function(data){
 						ro = data;
 						for(var result in ro.query.pages){
 							if(result > -1){

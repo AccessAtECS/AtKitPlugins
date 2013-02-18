@@ -6,25 +6,15 @@
 		$lib = AtKit.lib();
 
 		var settings = {
-			"baseURL": "http://c.atbar.org/ATBar/",
-			"serverURL": 'http://a.atbar.org/',
+			"baseURL": "https://core.atbar.org/",
+			"speechServicesURL": 'https://speech.services.atbar.org/',
 			"ttsChunkSize": 400
 		};
 
-		//if(AtKit.getLanguage() == "ar") settings.ttsChunkSize = 400;
-
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-			settings.serverURL = "https://ssl.atbar.org/a/";
-		}
-
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"tts_title" : "Text to Speech",
 			"tts_options": "Text to Speech Options",
-			"tts_what": "What do you want to convert to speech?",
-			"tts_selected": "Selected Text",
-			"tts_page": "Entire Page",
 			"tts_converting": "Text to Speech conversion is taking place.",
 			"tts_timeremaining": "Time Remaining:",
 			"tts_pleasewait": "Please wait...",
@@ -36,15 +26,15 @@
 			"tts_problem": "Something went wrong while we were converting this page to speech. Please try again shortly.",
 			"tts_servererror": "An error occurred on the server. Please try again later.",
 			"tts_seconds": "seconds",
-			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select the 'selected text' option."
+			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select the 'selected text' option.",
+			"tts_select_voice": "Highlight text and select a voice",
+			"tts_male": "Male",
+			"tts_female": "Female"
 		});
 
 		AtKit.addLocalisationMap("ar", {
 			"tts_title" : "&#1578;&#1581;&#1608;&#1610;&#1604; &#1575;&#1604;&#1606;&#1589;&#1608;&#1589; &#1575;&#1604;&#1610; &#1605;&#1575;&#1583;&#1577; &#1605;&#1587;&#1605;&#1608;&#1593;&#1577;",
 			"tts_options":"&#1582;&#1610;&#1575;&#1585;&#1575;&#1578; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;",
-			"tts_what": "&#1605;&#1575; &#1607;&#1608; &#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1584;&#1610; &#1578;&#1585;&#1610;&#1583; &#1606;&#1591;&#1602;&#1607",
-			"tts_selected":"&#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1581;&#1583;&#1583;",
-			"tts_page": "&#1603;&#1575;&#1605;&#1604; &#1575;&#1604;&#1589;&#1601;&#1581;&#1577;",
 			"tts_converting":"&#1580;&#1575;&#1585;&#1610;&#1577; &#1581;&#1575;&#1604;&#1610;&#1575;&#1611; &#1593;&#1605;&#1604;&#1610;&#1577; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;",
 			"tts_timeremaining": "&#1575;&#1604;&#1608;&#1602;&#1578; &#1575;&#1604;&#1605;&#1578;&#1576;&#1602;&#1610;",
 			"tts_pleasewait":"&#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1575;&#1604;&#1575;&#1606;&#1578;&#1592;&#1575;&#1585;...",
@@ -56,22 +46,25 @@
 			"tts_problem":"&#1581;&#1583;&#1579; &#1582;&#1591;&#1571; &#1571;&#1579;&#1606;&#1575;&#1569; &#1593;&#1605;&#1604;&#1610;&#1577; &#1606;&#1591;&#1602; &#1575;&#1604;&#1589;&#1601;&#1581;&#1577;. &#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1575;&#1604;&#1605;&#1581;&#1575;&#1608;&#1604;&#1577; &#1576;&#1593;&#1583; &#1602;&#1604;&#1610;&#1604;.",
 			"tts_servererror": "&#1581;&#1583;&#1579; &#1582;&#1591;&#1571; &#1601;&#1610; &#1575;&#1604;&#1582;&#1575;&#1583;&#1605;. &#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1575;&#1604;&#1605;&#1581;&#1575;&#1608;&#1604;&#1577; &#1604;&#1575;&#1581;&#1602;&#1575;&#1611;.",
 			"tts_seconds":"&#1579;&#1608;&#1575;&#1606;&#1613;",
-			"tts_explain":"&#1604;&#1575;&#1587;&#1578;&#1582;&#1583;&#1575;&#1605; &#1582;&#1575;&#1589;&#1610;&#1577; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1578;&#1581;&#1583;&#1610;&#1583; &#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1585;&#1575;&#1583; &#1578;&#1581;&#1608;&#1610;&#1604;&#1607; &#1593;&#1604;&#1609; &#1607;&#1584;&#1607; &#1575;&#1604;&#1589;&#1601;&#1581;&#1577;. &#1576;&#1593;&#1583; &#1584;&#1604;&#1603; &#1575;&#1590;&#1594;&#1591; &#1586;&#1585; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1608;&#1575;&#1590;&#1594;&#1591; &#1582;&#1610;&#1575;&#1585; &quot;&#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1581;&#1583;&#1583;&quot;."
+			"tts_explain":"&#1604;&#1575;&#1587;&#1578;&#1582;&#1583;&#1575;&#1605; &#1582;&#1575;&#1589;&#1610;&#1577; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1578;&#1581;&#1583;&#1610;&#1583; &#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1585;&#1575;&#1583; &#1578;&#1581;&#1608;&#1610;&#1604;&#1607; &#1593;&#1604;&#1609; &#1607;&#1584;&#1607; &#1575;&#1604;&#1589;&#1601;&#1581;&#1577;. &#1576;&#1593;&#1583; &#1584;&#1604;&#1603; &#1575;&#1590;&#1594;&#1591; &#1586;&#1585; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1608;&#1575;&#1590;&#1594;&#1591; &#1582;&#1610;&#1575;&#1585; &quot;&#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1581;&#1583;&#1583;&quot;.",
+			"tts_select_voice": "&#1602;&#1605; &#1576;&#1578;&#1592;&#1604;&#1610;&#1604; &#1575;&#1604;&#1606;&#1589; &#1608;&#1575;&#1582;&#1578;&#1610;&#1575;&#1585; &#1575;&#1604;&#1589;&#1608;&#1578;",
+			"tts_male": "&#1605;&#1584;&#1603;&#1585;",
+			"tts_female": "&#1605;&#1572;&#1606;&#1579;"
 		});
 
 		// Text to speech
 		var TTSDialogs = {
 			"options": {
 				"title": AtKit.localisation("tts_options"),
-				"body": AtKit.localisation("tts_what") + " <br /><!--<button id=\"sbStartTTS\"> " + AtKit.localisation("tts_page") + "</button>--> <button id=\"sbStartTTSSelection\"> " + AtKit.localisation("tts_selected") + "</button>"
+				"body": AtKit.localisation("tts_select_voice") + " <br /><button id=\"sbStartTTSSelectionMale\"> " + AtKit.localisation("tts_male") + "</button> <button id=\"sbStartTTSSelectionFemale\"> " + AtKit.localisation("tts_female") + "</button>"
 			},
 			"starting": {
 				"title": AtKit.localisation("tts_title"),
-				"body": "<center>" + AtKit.localisation("tts_converting") + " <br /><img src='" + AtKit.getPluginURL() + "images/loadingbig.gif' /><br />"+ AtKit.localisation("tts_timeremaining") +": <div id='sbttstimeremaining'>...</div><br />" + AtKit.localisation("tts_pleasewait") + " </center>"
+				"body": "<center>" + AtKit.localisation("tts_converting") + " <br /><img src='" + AtKit.getPluginURL() + "images/loadingbig.gif' /><br />"+ AtKit.localisation("tts_timeremaining") +" <div id='sbttstimeremaining'>...</div><br />" + AtKit.localisation("tts_pleasewait") + " </center>"
 			}
 		};
 		var TTSFunctions = {};
-		var TTSExtendedObject = {
+		/*var TTSExtendedObject = {
 			clickEnabled: true,
 			positition: "",
 			playingItem: "",
@@ -108,7 +101,7 @@
 					}
 				}
 			}
-		};
+		};*/
 		
 
 		// Add functions to AtKit.
@@ -248,8 +241,8 @@
 			}
 			
 			var payload = args.fullData.substring(start, endPoint);
-		
-			var urlString = settings.serverURL + 'xmlhttp/remote.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
+						
+			var urlString = settings.speechServicesURL + 'insipio-tts/request.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&voice=' + args.voice + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
 			if( args.block == args.totalBlocks-1 ){
 				urlString += "&page=" + encodeURIComponent(window.location);
 			}
@@ -296,7 +289,7 @@
 					var audioContainer = "audioo";
 					
 					if($lib.browser != "msie"){
-						$lib('body').append( $lib("<div id=\"flashContent\"><OBJECT classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" width=\"1\" height=\"1\" id=\"audioe\"> <PARAM name=movie value=\"" + settings.serverURL + "TTS/player/player-licensed.swf\"></PARAM> <PARAM name=flashvars value=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer + "\"><PARAM name=allowscriptaccess value=\"always\" /><embed type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" src=\"" + settings.serverURL + "TTS/player/player-licensed.swf\" width=\"1\" height=\"1\" allowscriptaccess=\"always\" allowfullscreen=\"false\" flashvars=\"file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady\" name=\"audioe\" /> </OBJECT></div>") );
+						$lib('body').append( $lib("<div id=\"flashContent\"><OBJECT classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" width=\"1\" height=\"1\" id=\"audioe\"> <PARAM name=movie value=\"" + settings.speechServicesURL + "lib/player/player-licensed.swf\"></PARAM> <PARAM name=flashvars value=\"file=" + settings.speechServicesURL + "cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer + "\"><PARAM name=allowscriptaccess value=\"always\" /><embed type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" src=\"" + settings.speechServicesURL + "lib/player/player-licensed.swf\" width=\"1\" height=\"1\" allowscriptaccess=\"always\" allowfullscreen=\"false\" flashvars=\"file=" + settings.speechServicesURL + "cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady\" name=\"audioe\" /> </OBJECT></div>") );
 					
 						AtKit.call('setupTTSListeners');
 					} else {
@@ -305,7 +298,7 @@
 						
 
 						var params = {
-						  flashvars: "file=" + settings.serverURL + "TTS/cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer,
+						  flashvars: "file=" + settings.speechServicesURL + "cache/" + arg.id + ".xml&autostart=true&playlist=bottom&repeat=list&playerready=playerReady&id=" + audioContainer,
 						  allowscriptaccess: "always"
 						};
 						var attributes = {
@@ -313,7 +306,7 @@
 						  name: audioContainer
 						};
 						
-						swfobject.embedSWF(settings.serverURL + "TTS/player/player-licensed.swf", "flashContent", "1", "1", "9.0.0","expressInstall.swf", false, params, attributes, function(){
+						swfobject.embedSWF(settings.speechServicesURL + "lib/player/player-licensed.swf", "flashContent", "1", "1", "9.0.0","expressInstall.swf", false, params, attributes, function(){
 							AtKit.call('setupTTSListeners');
 						});
 					
@@ -322,7 +315,7 @@
 					AtKit.hideDialog();
 					
 				} else {
-					$lib('#sbttstimeremaining').html( arg.timeLeft + " seconds" );
+					$lib('#sbttstimeremaining').html( arg.timeLeft + " " + AtKit.localisation("tts_seconds"));
 					window.setTimeout(function(){ AtKit.call('countdownTTS', { 'timeLeft':(arg.timeLeft - 1), 'id':arg.id }) }, 1000);
 				}
 			}
@@ -334,11 +327,12 @@
 			window.playerReady = function(obj) {
 				
 				AtKit.set('ATAudioPlayerID', obj.id);
-
+				
+				/*
 				for(b in TTSExtendedObject.TTSButtons){
 					var obj = TTSExtendedObject.TTSButtons[b];
 					AtKit.addButton(b, obj.tooltip, obj.icon, obj.fn);
-				}
+				}*/
 				
 				// Set values.
 				AtKit.set("TTS_position", 0);
@@ -402,6 +396,38 @@
 	      	$lib('#at-lnk-tts').children('img').attr('src', AtKit.getPluginURL() + "images/sound.png").css('padding-top', '6px');
 	      	AtKit.set('TTS_clickEnabled', true);
 		});
+		
+		AtKit.addFn('sbStartTTSSelection', function(args){
+						
+			AtKit.set('TTS_clickEnabled', false);
+
+			var selectedData = AtKit.get('TTSselectedData');
+			if(selectedData == "" || typeof selectedData == "undefined") selectedData = AtKit.call('getSelectedTextTTS');
+			
+			if(typeof selectedData != "undefined" && selectedData !== ""){
+		
+			this.clickEnabled = false;
+				
+				// Send the data in chunks, as chances are we cant get it all into one request.
+				var transmitData = AtKit.call('b64', selectedData );
+				
+				var chunks = Math.ceil(transmitData.length / settings.ttsChunkSize);
+				
+				if(chunks > 0){
+					var reqID = Math.floor(Math.random() * 5001);
+					
+					AtKit.message( "<h2>" + AtKit.localisation("tts_pleasewait") + "</h2><p>" + AtKit.localisation("tts_converting") + "...<br /><div id='compactStatus'>0 / " + chunks + "</div></p>" );
+					
+					AtKit.call('sendTTSChunk', { 'fullData':transmitData, 'block':1, 'totalBlocks':chunks, 'reqID':reqID, 'voice':args.voice });
+				} else {
+					AtKit.message( "<h2>" + AtKit.localisation("tts_error") + "</h2><p>" + AtKit.localisation("tts_problem") + "</p>" );
+				}
+				
+			} else {
+				AtKit.message("<h2>" + AtKit.localisation("tts_title") + "</h2><p>" + AtKit.localisation("tts_explain") + "</p>");
+			}
+		
+		});	
 
 		AtKit.set('TTS_clickEnabled', true);
 		
@@ -426,69 +452,18 @@
 				AtKit.show(dialogs.options);
 				AtKit.set('TTS_Listeners_setup', false);
 
-				AtKit.addScript(settings.baseURL + '/swfobject.js', null);
-
-				$lib('#sbStartTTS').click(function(e){
-					// Get page contents.
-					var pageData = $lib(document.body).clone();
-					
-					pageData.find('script, noscript, style, #facebox_overlay, #sbar, #sbarGhost, #facebox, br, img').remove();
-					
-					
-					// Remove comments
-					pageData = String(pageData.html()).replace(/<!---.*--->/g, '');
-					pageData.replace(/[\n\r]+/g, '');
-					
-					pageData = AtKit.call('b64', pageData);
-		
-					var chunks = Math.ceil(pageData.length / settings.ttsChunkSize);
-					
-					if(chunks > 0){
-						var reqID = Math.floor(Math.random() * 5001);
-						
-						AtKit.message( "<h2>" + AtKit.localisation("tts_pleasewait") + "</h2><p>" + AtKit.localisation("tts_converting") + "...<br /><div id='compactStatus'>0 / " + chunks + "</div></p>" );
-						
-						AtKit.call('sendTTSChunk', { 'fullData':pageData, 'block':1, 'totalBlocks':chunks, 'reqID':reqID });
-					} else {
-						AtKit.message( "<h2>" + AtKit.localisation("tts_error") + "</h2><p>" + AtKit.localisation("tts_problem") + "</p>" );
-					}
-					
-				});
-
-				$lib('#sbStartTTSSelection').click(function(e){
+				AtKit.addScript(settings.baseURL + 'resources/js/swfobject.js', null);
 				
-					AtKit.set('TTS_clickEnabled', false);
-
-					var selectedData = AtKit.get('TTSselectedData');
-					if(selectedData == "" || typeof selectedData == "undefined") selectedData = AtKit.call('getSelectedTextTTS');
-					
-					if(typeof selectedData != "undefined" && selectedData !== ""){
 				
-					this.clickEnabled = false;
-						
-						// Send the data in chunks, as chances are we cant get it all into one request.
-						var transmitData = AtKit.call('b64', selectedData );
-						
-						var chunks = Math.ceil(transmitData.length / settings.ttsChunkSize);
-						
-						if(chunks > 0){
-							var reqID = Math.floor(Math.random() * 5001);
-							
-							AtKit.message( "<h2>" + AtKit.localisation("tts_pleasewait") + "</h2><p>" + AtKit.localisation("tts_converting") + "...<br /><div id='compactStatus'>0 / " + chunks + "</div></p>" );
-							
-							AtKit.call('sendTTSChunk', { 'fullData':transmitData, 'block':1, 'totalBlocks':chunks, 'reqID':reqID });
-						} else {
-							AtKit.message( "<h2>" + AtKit.localisation("tts_error") + "</h2><p>" + AtKit.localisation("tts_problem") + "</p>" );
-						}
-						
-					} else {
-						AtKit.message("<h2>" + AtKit.localisation("tts_title") + "</h2><p>" + AtKit.localisation("tts_explain") + "</p>");
-					}
-				
+				$lib('#sbStartTTSSelectionMale').click(function(){
+					AtKit.call('sbStartTTSSelection', { 'voice':'male' });
 				});
 				
+				$lib('#sbStartTTSSelectionFemale').click(function(){
+					AtKit.call('sbStartTTSSelection', { 'voice':'female' });
+				});			
 			},
-			TTSDialogs, TTSFunctions, TTSExtendedObject
+			TTSDialogs, TTSFunctions//, TTSExtendedObject
 		);
 
 	};

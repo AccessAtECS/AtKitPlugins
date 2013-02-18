@@ -1,29 +1,18 @@
 (function(){
 
-	var pluginName = "w3c-css";
+	var pluginName = "speechrecog";
 	var plugin = function(){
-		
-		$lib = AtKit.lib();
-		
-		// Internationalisation
-		AtKit.addLocalisationMap("en", {
-			"plugin_title" : "Use W3C CSS validator"
-		});
-		
-		// WAVE
+	
 		AtKit.addButton(
-			'w3c-css', 
-			AtKit.localisation("plugin_title"),
-			AtKit.getPluginURL() + 'images/w3c-css.png',
+			'speechrecog', 
+			"Speech Recognition",
+			AtKit.getPluginURL() + 'images/fugue/balloon-ellipsis.png',
 			function(dialogs, functions){
-
-				window.open('http://jigsaw.w3.org/css-validator/validator?uri='+escape(window.location))	
-				
-			},
-			null, null
+				AtKit.message("<h1>Speech Recognition</h1><center><input type='text' x-webkit-speech /></center>");
+			}
 		);
 
-	};
+	}
 
 	if(typeof window['AtKit'] == "undefined"){
 

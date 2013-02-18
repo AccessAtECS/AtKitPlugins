@@ -6,7 +6,7 @@
 		$lib = AtKit.lib();
 
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"fonts_dialogTitle" : "Page font settings",
 			"fonts_fontFace" : "Font Face",
 			"fonts_lineSpacing" : "Line Spacing",
@@ -18,23 +18,33 @@
 			"fonts_fontFace" : "&#1606;&#1608;&#1593; &#1575;&#1604;&#1582;&#1591;",
 			"fonts_lineSpacing": "&#1575;&#1604;&#1605;&#1587;&#1575;&#1601;&#1575;&#1578; &#1576;&#1610;&#1606; &#1575;&#1604;&#1571;&#1587;&#1591;&#1585;",
 			"fonts_apply": "&#1578;&#1591;&#1576;&#1610;&#1602;"
-		});		
+		});
 
 
 		// Font settings
 		var fontDialogs = {
-				"main": "<h1>" + AtKit.localisation("fonts_dialogTitle") + "</h1><label for=\"sbfontface\">" + AtKit.localisation("fonts_fontFace") + ":</label> <select id=\"sbfontface\"><option value=\"sitespecific\">--Site Specific--</option><option value=\"arial\">Arial</option><option value=\"courier\">Courier</option><option value=\"cursive\">Cursive</option><option value=\"fantasy\">Fantasy</option><option value=\"georgia\">Georgia</option><option value=\"helvetica\">Helvetica</option><option value=\"impact\">Impact</option><option value=\"monaco\">Monaco</option><option value=\"monospace\">Monospace</option><option value=\"sans-serif\">Sans-Serif</option><option value=\"tahoma\">Tahoma</option><option value=\"times new roman\">Times New Roman</option><option value=\"trebuchet ms\">Trebuchet MS</option><option value=\"verdant\">Verdana</option></select><br /><br /> <label for=\"sblinespacing\">" + AtKit.localisation("fonts_lineSpacing") + "</label> <input type=\"text\" name=\"sblinespacing\" id=\"sblinespacing\" maxlength=\"3\" size=\"3\" value=\"100\">%<br /><br /><button id='ATApplyFont'>" + AtKit.localisation("fonts_apply") + "</a></div>"
+				'main': '<h1>' + AtKit.localisation('fonts_dialogTitle') + '</h1><label for="sbfontface">' + AtKit.localisation('fonts_fontFace') + ':</label> <select id="sbfontface"><option value="sitespecific">--Site Specific--</option><option value="arial">Arial</option><option value="courier">Courier</option><option value="cursive">Cursive</option><option value="fantasy">Fantasy</option><option value="georgia">Georgia</option><option value="helvetica">Helvetica</option><option value="impact">Impact</option><option value="monaco">Monaco</option><option value="monospace">Monospace</option><option value="sans-serif">Sans-Serif</option><option value="tahoma">Tahoma</option><option value="times new roman">Times New Roman</option><option value="trebuchet ms">Trebuchet MS</option><option value="verdant">Verdana</option></select><br /><br /> <label for="sblinespacing">' + AtKit.localisation('fonts_lineSpacing') + '</label> <input type="text" name="sblinespacing" id="sblinespacing" maxlength="3" size="3" value="100">%<br /><br /><button id="ATApplyFont">' + AtKit.localisation('fonts_apply') + '</a></div>'
 		};
 		
 		AtKit.addFn('changeFont', function(args){
-			if(args.fontFace != "--Site Specific--") $lib('body').css('font-family', args.fontFace);
+			// Get all HTML tags from AtKit
+			var tags = AtKit.getHtmlTags();
 			
-			$lib('div[id!="sbar"], span, p').css('line-height', args.lineHeight + "%");
-			$lib('#sbar').find('div').css('line-height', '0%');
+			if(args.fontFace != "--Site Specific--"){
+				// Change font family
+				for(var i = 0; i < tags.length; i++){
+					$lib(tags[i]).css('font-family', args.fontFace);
+				}
+				// Change line height
+				for(var k = 0; k < tags.length; k++){
+					$lib(tags[k]).css('line-height', args.lineHeight + '%');
+				}
+				
+				// Set ATbar line height back to 0%
+				$lib('#sbar').find('div').css('line-height', '0%');
+			}
 			
-			AtKit.storage('pageFont', args.fontFace);
-			AtKit.storage('pageLineHeight', args.lineHeight);
-		});
+		})
 		
 		AtKit.addButton(
 			'fontSettings', 
@@ -42,9 +52,6 @@
 			AtKit.getPluginURL() + 'images/font.png',
 			function(dialogs, functions){
 				AtKit.message(dialogs.main);
-				
-				var storedFont = AtKit.storage('pageFont');
-				if(storedFont != false) $lib('#sbfontface').children('option[value="' + storedFont + '"]').attr('selected', 'selected');
 				
 				$lib('#ATApplyFont').click(function(){
 					AtKit.call('changeFont', { 

@@ -4,17 +4,13 @@
 	var plugin = function(){
 
 		var settings_css = {
-			'baseURL': 'http://c.atbar.org/ATBar/'
+			'baseURL': 'https://styles.services.atbar.org/css/'
 		};
 		
-		if(/https:/.test(window.location.protocol)){
-			settings_css.baseURL = "https://ssl.atbar.org/c/ATBar/";
-		}
-
 		$lib = AtKit.lib();
 
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"css_title" : "Change Styles",
 			"css_changeColour" : "Change colour settings",
 			"css_changeToolbar": "Change Toolbar colour",
@@ -78,7 +74,7 @@
 			"css_white_grey":"&#1571;&#1576;&#1610;&#1590; &#1593;&#1604;&#1609; &#1582;&#1604;&#1601;&#1610;&#1577; &#1585;&#1605;&#1575;&#1583;&#1610;&#1577;"
 		});
 
-		var colourOptions = "<option value=\"original\">--" + AtKit.localisation("css_colour_original") + "--</option><option value=\"B80028\">" + AtKit.localisation("css_colour_red") + "</option><option value=\"194E84\">" + AtKit.localisation("css_colour_blue") + "</option><option value=\"60BB22\">" + AtKit.localisation("css_colour_green") + "</option><option value=\"FDB813\">" + AtKit.localisation("css_colour_yellow") + "</option><option value=\"F17022\">" + AtKit.localisation("css_colour_orange") + "</option><option value=\"000000\">" + AtKit.localisation("css_black") + "</option><option value=\"A8B1B8\">" + AtKit.localisation("css_grey") + "</option><option value=\"FFFFFF\">" + AtKit.localisation("css_white") + "</option>";
+		var colourOptions = '<option value="original">--' + AtKit.localisation('css_colour_original') + '--</option><option value="B80028">' + AtKit.localisation('css_colour_red') + '</option><option value="194E84">' + AtKit.localisation('css_colour_blue') + '</option><option value="60BB22">' + AtKit.localisation('css_colour_green') + '</option><option value="FDB813">' + AtKit.localisation('css_colour_yellow') + '</option><option value="F17022">' + AtKit.localisation('css_colour_orange') + '</option><option value="000000">' + AtKit.localisation('css_black') + '</option><option value="A8B1B8">' + AtKit.localisation('css_grey') + '</option><option value="FFFFFF">' + AtKit.localisation('css_white') + "</option>";
 
 		// CSS button
 		var CSSDialogs = {
@@ -144,36 +140,36 @@
 				$lib('#sbApplyCSS-yb').click(function(e){ 
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
-					AtKit.addStylesheet(settings_css.baseURL + "stylesheets/high-yo.css", "highvis-yo");
-					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "stylesheets/high-rtl.css", "high-rtl-yo");
+					AtKit.addStylesheet(settings_css.baseURL + "css/high-yo.css", "highvis-yo");
+					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-yo");
 				});
 				
 				$lib('#sbApplyCSS-wb').click(function(e){ 
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
-					AtKit.addStylesheet(settings_css.baseURL + "stylesheets/high-wb.css", "highvis-wb");
-					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "stylesheets/high-rtl.css", "high-rtl-wb");
+					AtKit.addStylesheet(settings_css.baseURL + "css/high-wb.css", "highvis-wb");
+					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-wb");
 				});
 				
 				$lib('#sbApplyCSS-wbw').click(function(e){
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
-					AtKit.addStylesheet(settings_css.baseURL + "stylesheets/high-bw.css", "highvis-wbw");
-					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "stylesheets/high-rtl.css", "high-rtl-wbw");
+					AtKit.addStylesheet(settings_css.baseURL + "css/high-bw.css", "highvis-wbw");
+					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-wbw");
 				});
 				
 				$lib('#sbApplyCSS-by').click(function(e){
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
-					AtKit.addStylesheet(settings_css.baseURL + "stylesheets/high-by.css", "highvis-by");
-					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "stylesheets/high-rtl.css", "high-rtl-by");
+					AtKit.addStylesheet(settings_css.baseURL + "css/high-by.css", "highvis-by");
+					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-by");
 				});
 				
 				$lib('#sbApplyCSS-gw').click(function(e){
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
-					AtKit.addStylesheet(settings_css.baseURL + "stylesheets/high-gw.css", "highvis-by");
-					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "stylesheets/high-rtl.css", "high-rtl-by");
+					AtKit.addStylesheet(settings_css.baseURL + "css/high-gw.css", "highvis-by");
+					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-by");
 				});	
 				
 				

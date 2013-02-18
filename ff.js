@@ -3,19 +3,9 @@
 	var pluginName = "ff";
 	var plugin = function(){
 		
-		$lib = AtKit.lib();
-		
-		settings = {
-			"baseURL": "http://c.atbar.org/ATBar/"
-		};
-		
-		if(/https:/.test(window.location.protocol)){
-			settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-		}
-		
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
-			"ff_title" : "Start FontFriend"
+		AtKit.addLocalisationMap("en", {
+			"ff_title" : "Start Font Friend"
 		});
 		
 		// FontFriend
@@ -26,7 +16,7 @@
 			function(dialogs, functions){
 
 				if(typeof jQuery=='undefined'){
-					var jqit=document.createElement('script');jqit.type='text/javascript';jqit.src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js';document.getElementsByTagName('head')[0].appendChild(jqit);
+					var jqit=document.createElement('script');jqit.type='text/javascript';jqit.src='https://core.atbar.org/resources/jquery/1.8/jquery.min.js';document.getElementsByTagName('head')[0].appendChild(jqit);
 				}
 				
 				_my_script=document.createElement('script');_my_script.type='text/javascript';_my_script.src='http://font-friend.googlecode.com/svn/trunk/font-friend.js';document.getElementsByTagName('head')[0].appendChild(_my_script);

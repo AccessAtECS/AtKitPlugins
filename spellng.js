@@ -22,16 +22,26 @@
 		
 		$lib = AtKit.lib();
 		
-		$lib.sb_spellVersion = '3.5';
-
+		$lib.sb_spellVersion = '3.9';
+		
+		var spellngSentance = null;
+		var spellngIncorrect = null;
+		var spellngCorrection = null;
+		var spellngIgnore = 0;
+		
+		
 		// Internationalisation
-		AtKit.addLocalisationMap("GB", {
+		AtKit.addLocalisationMap("en", {
 			"spell_title" : "Start Spellchecker",
 			"spell_complete": "Spell checking complete!",
 			"spell_mistake": "Spelling Mistake",
 			"spell_suggestions": "Spelling Suggestions",
 			"spell_ignore": "Ignore",
-			"spell_replace": "Replace"
+			"spell_replace": "Replace",
+			"spell_record": "Send anonymous usage data?",
+			"spell_record_data": "Data to be sent: ",
+			"spell_record_allow": "Allow",
+			"spell_record_disallow": "Disallow"
 		});
 
 		AtKit.addLocalisationMap("ar", {
@@ -40,7 +50,11 @@
 			"spell_mistake": "&#1582;&#1591;&#1571; &#1573;&#1605;&#1604;&#1575;&#1574;&#1610;",
 			"spell_suggestions": "&#1575;&#1602;&#1578;&#1585;&#1575;&#1581;&#1575;&#1578; &#1604;&#1578;&#1589;&#1581;&#1610;&#1581; &#1575;&#1604;&#1582;&#1591;&#1571; &#1575;&#1604;&#1573;&#1605;&#1604;&#1575;&#1574;&#1610;",
 			"spell_ignore": "&#1578;&#1580;&#1575;&#1607;&#1604;",
-			"spell_replace": "&#1575;&#1587;&#1578;&#1576;&#1583;&#1575;&#1604;"
+			"spell_replace": "&#1575;&#1587;&#1578;&#1576;&#1583;&#1575;&#1604;",
+			"spell_record": "&#1571;&#1585;&#1587;&#1575;&#1604; &#1587;&#1580;&#1604; &#1575;&#1604;&#1575;&#1587;&#1578;&#1582;&#1583;&#1575;&#1605; &#1583;&#1608;&#1606; &#1603;&#1588;&#1601; &#1607;&#1608;&#1610;&#1577; &#1575;&#1604;&#1605;&#1587;&#1578;&#1582;&#1583;&#1605;",
+			"spell_record_data": "&#1575;&#1604;&#1605;&#1581;&#1578;&#1608;&#1609; &#1575;&#1604;&#1582;&#1575;&#1589; &#1576;&#1604;&#1571;&#1585;&#1587;&#1575;&#1604; : ",
+			"spell_record_allow": " &#1575;&#1604;&#1587;&#1605;&#1575;&#1581; &#1576;&#1600;",
+			"spell_record_disallow": " &#1593;&#1583;&#1605; &#1575;&#1604;&#1587;&#1605;&#1575;&#1581; &#1576;&#1600;"
 		});
 
 		AtKit.set('spellInitialised', false);
@@ -48,16 +62,10 @@
 		var complete = $lib('<div>', { "style": "" });
 		complete.append($lib('<h3>', { "html": AtKit.localisation("spell_complete") }));
 
-
 		var spell_settings = {
-			"baseURL": "http://c.atbar.org/ATBar/",
+			"baseURL": "https://core.atbar.org/",
 			"completeDialog": complete
 		};
-		
-		if(/https:/.test(window.location.protocol)){
-			spell_settings.baseURL = "https://ssl.atbar.org/c/ATBar/";
-		}
-
 
 		AtKit.addFn('removeIncorrectWord', function(){
 			var selector = "#spellcheckmistakes";
@@ -71,8 +79,43 @@
 				$lib(selector).trigger('change');
 			}
 			
+			AtKit.call('recordSpell');
+			
 		});
-
+		
+		AtKit.addFn('recordSpell', function(){
+			var dlg = $lib('<div>', { "style": "", "id": "AtKitSpellRecordDialog" });
+			dlg.append($lib('<p>', { "html": "" }));
+			dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_record") }));
+			dlg.append($lib('<div>', { "id": "AtKitSpellRecordContainer" }));
+			dlg.append($lib('<p>', { "html": AtKit.localisation("spell_record_data") + spellngSentance }));
+			dlg.append($lib('<div>', { "id": "AtKitSpellRecordContainerData" }));
+			dlg.append($lib('<button>', { "html": AtKit.localisation("spell_record_allow"), "id": "AtKitSpellRecordAllow" }));
+			dlg.append($lib('<button>', { "html": AtKit.localisation("spell_record_disallow"), "id": "AtKitSpellRecordDisallow" }));
+			
+			AtKit.message(dlg);
+			$lib("#AtKitSpellRecordDialog").focus();
+			
+			$lib('#AtKitSpellRecordAllow').click(function(){
+				AtKit.call('recordSpellng');
+				AtKit.message(spell_settings.completeDialog);
+			});
+			
+			$lib('#AtKitSpellRecordDisallow').click(function(){
+				AtKit.message(spell_settings.completeDialog);
+			});			
+		});
+		
+		AtKit.addFn('recordSpellng', function(){
+			
+			var spellngRecordURL = "https://spell.services.atbar.org/spellng/record-spellng.php?l=" + AtKit.getLanguage() + "&e=" + spellngIncorrect + "&c=" + spellngCorrection + "&i=" + spellngIgnore + "&s=" + spellngSentance;
+			
+			$lib("#sbar").prepend('<img src="' + spellngRecordURL + '" />');
+			
+			spellngIncorrect = null;
+			spellngCorrection = null;
+			spellngIgnore = 0;
+		});
 
 		AtKit.addFn('initSpell', function(){
 			$lib.fn.spellcheck = function(options) {
@@ -143,12 +186,12 @@
 					this.origText = input;
 					this.rteptr = rteptr;
 					this.RTEType = type;
-					
 					var prevText = input.replace(/<.*?>/ig, '');
 					this.text = input.replace(/<.*?>/ig, '');
+					spellngSentance = input;
 					var self = this, timeout;
 					
-					$lib.getJSON("http://core.a.atbar.org/API/spellng.php?l=" + this.options.lang + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
+					$lib.getJSON("https://spell.services.atbar.org/spellng/spellng.php?l=" + this.options.lang + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
 						self.parseResults( data );
 					});
 
@@ -160,8 +203,9 @@
 					if ( prevText === text ) return;
 					this.text = this.$element.val();
 					var self = this, timeout;
+					spellngSentance = this.text;					
 					
-					$lib.getJSON("http://core.a.atbar.org/API/spellng.php?l=" + this.options.lang + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
+					$lib.getJSON("https://spell.services.atbar.org/spellng/spellng.php?l=" + this.options.lang + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
 						self.parseResults( data );
 					});
 
@@ -192,7 +236,7 @@
 				displayResults: function() {
 					if ( !this.results.count ) return;
 
-					var dlg = $lib('<div>', { "style": "" });
+					var dlg = $lib('<div>', { "style": "", "id": "AtKitSpellDialog" });
 					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_mistake") }));
 					dlg.append($lib('<div>', { "id": "AtKitSpellMistakeContainer" }));
 					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_suggestions") }));
@@ -230,7 +274,8 @@
 
 
 					AtKit.message(dlg);
-
+					$lib("#AtKitSpellDialog").focus();
+					
 					// Add items to spellcheckmistakes.
 					$lib.each(this.results.words, function(i,v){
 						dlg.find('#spellcheckmistakes').append(
@@ -241,6 +286,13 @@
 
 					// Ignore this mistake
 					$lib('#AtKitSpellIgnore').click(function(){
+						// Record error and correction
+						spellngIgnore = 1;
+						
+						var selector = "#spellcheckmistakes";
+						var mistake = dlg.find(selector).val();
+						spellngIncorrect = mistake;
+						
 						AtKit.call('removeIncorrectWord');
 					});
 
@@ -249,7 +301,12 @@
 
 						var mistake = dlg.find(selector).val();
 						var replacement = dlg.find("#spellchecksuggestions").val();
-
+						
+						// Record error and correction
+						spellngIgnore = 0;
+						spellngIncorrect = mistake;
+						spellngCorrection = replacement;
+						
 						if(self.isRTE === false || (typeof self.isRTE) == 'undefined'){
 							self.$element.val( self.$element.val().replace( mistake, replacement ) );
 						} else {
@@ -270,11 +327,10 @@
 					dlg.find("#spellcheckmistakes").trigger('change');
 				}
 				
-			};
+			};			
 			AtKit.set('spellInitialised', true);
 		});
-
-		
+				
 		// Spell checker
 		AtKit.addButton(
 			'spell',
@@ -309,7 +365,7 @@
 					}
 				}
 				
-				$lib('#at-lnk-spell').find('img').attr('src', spell_settings.baseURL + "images/spell.png");
+				$lib('#at-lnk-spell').find('img').attr('src', AtKit.getPluginURL() + "images/spell.png");
 					
 				
 			});
