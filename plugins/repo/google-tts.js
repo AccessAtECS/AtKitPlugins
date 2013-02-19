@@ -56,7 +56,7 @@
 		var TTSDialogs = {
 			"options": {
 				"title": AtKit.localisation("tts_options"),
-				"body": AtKit.localisation("tts_select_voice") + " <br /><button id=\"sbStartTTSSelectionMale\"> " + AtKit.localisation("tts_male") + "</button> <button id=\"sbStartTTSSelectionFemale\"> " + AtKit.localisation("tts_female") + "</button>"
+				"body": AtKit.localisation("tts_select_voice") + " <br /><button id=\"sbStartTTSSelection\"> " + AtKit.localisation("tts_male")
 			},
 			"starting": {
 				"title": AtKit.localisation("tts_title"),
@@ -242,7 +242,7 @@
 			
 			var payload = args.fullData.substring(start, endPoint);
 						
-			var urlString = settings.speechServicesURL + 'insipio-tts/request.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&voice=' + args.voice + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
+			var urlString = settings.speechServicesURL + 'google-tts/request.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
 			if( args.block == args.totalBlocks-1 ){
 				urlString += "&page=" + encodeURIComponent(window.location);
 			}
@@ -397,8 +397,8 @@
 	      	AtKit.set('TTS_clickEnabled', true);
 		});
 		
-		AtKit.addFn('sbStartTTSSelection', function(args){
-						
+		AtKit.addFn('sbStartTTSSelection', function(){
+			
 			AtKit.set('TTS_clickEnabled', false);
 
 			var selectedData = AtKit.get('TTSselectedData');
@@ -418,7 +418,7 @@
 					
 					AtKit.message( "<h2>" + AtKit.localisation("tts_pleasewait") + "</h2><p>" + AtKit.localisation("tts_converting") + "...<br /><div id='compactStatus'>0 / " + chunks + "</div></p>" );
 					
-					AtKit.call('sendTTSChunk', { 'fullData':transmitData, 'block':1, 'totalBlocks':chunks, 'reqID':reqID, 'voice':args.voice });
+					AtKit.call('sendTTSChunk', { 'fullData':transmitData, 'block':1, 'totalBlocks':chunks, 'reqID':reqID});
 				} else {
 					AtKit.message( "<h2>" + AtKit.localisation("tts_error") + "</h2><p>" + AtKit.localisation("tts_problem") + "</p>" );
 				}
@@ -455,13 +455,9 @@
 				AtKit.addScript(settings.baseURL + 'resources/js/swfobject.js', null);
 				
 				
-				$lib('#sbStartTTSSelectionMale').click(function(){
-					AtKit.call('sbStartTTSSelection', { 'voice':'male' });
-				});
-				
-				$lib('#sbStartTTSSelectionFemale').click(function(){
-					AtKit.call('sbStartTTSSelection', { 'voice':'female' });
-				});			
+				$lib('#sbStartTTSSelection').click(function(){
+					AtKit.call('sbStartTTSSelection');
+				});		
 			},
 			TTSDialogs, TTSFunctions//, TTSExtendedObject
 		);
