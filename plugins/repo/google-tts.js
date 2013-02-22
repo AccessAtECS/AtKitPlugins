@@ -1,6 +1,6 @@
 (function(){
 
-	var pluginName = "gtts";
+	var pluginName = "google-tts";
 	var plugin = function(){
 
 		$lib = AtKit.lib();
