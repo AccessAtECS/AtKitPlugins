@@ -244,7 +244,7 @@
 						
 			var urlString = settings.speechServicesURL + 'google-tts/request.php?r=' + payload + '&l=' + AtKit.getLanguage();
 			
-			urlString += "&callback=?";
+			urlString += "&c=?";
 			
 			$lib.getJSON(urlString, function(RO){
 				$lib("#compactStatus").html(args.block + " / " + args.totalBlocks);
@@ -406,7 +406,8 @@
 			this.clickEnabled = false;
 				
 				// Send the data in chunks, as chances are we cant get it all into one request.
-				var transmitData = AtKit.call('b64', selectedData );
+				//var transmitData = AtKit.call('b64', selectedData );
+				var transmitData = selectedData;
 				
 				var chunks = Math.ceil(transmitData.length / settings.ttsChunkSize);
 				
