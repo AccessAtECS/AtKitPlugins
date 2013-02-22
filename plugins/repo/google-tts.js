@@ -242,10 +242,7 @@
 			
 			var payload = args.fullData.substring(start, endPoint);
 						
-			var urlString = settings.speechServicesURL + 'google-tts/request.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
-			if( args.block == args.totalBlocks-1 ){
-				urlString += "&page=" + encodeURIComponent(window.location);
-			}
+			var urlString = settings.speechServicesURL + 'google-tts/request.php?r=' + payload + '&l=' + AtKit.getLanguage();
 			
 			urlString += "&callback=?";
 			
